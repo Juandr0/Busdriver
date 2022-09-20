@@ -43,6 +43,7 @@ class CardgameActivity : AppCompatActivity() {
         initiateCardsOnBoard()
         amountOfPlayers()
         asignCardsToPyramid(deckOfCards)
+
         
 
     }

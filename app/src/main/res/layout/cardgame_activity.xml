@@ -101,7 +101,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/firstRowFirstCard"
         app:layout_constraintEnd_toStartOf="@+id/secondRowSecondCard"
-        app:srcCompat="@drawable/cardback" />
+        app:srcCompat="@drawable/cardback"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/secondRowThirdCard"
