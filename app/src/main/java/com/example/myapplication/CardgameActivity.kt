@@ -1,15 +1,14 @@
 package com.example.myapplication
 
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 
-
-class Player (var name : String){
+class Player (var name : String, var score : Int){
 
 }
 
@@ -24,15 +23,13 @@ class CardgameActivity : AppCompatActivity() {
     var imageViewList = mutableListOf<ImageView>()
     var deckOfCards = mutableListOf<Card>()
     var cardsInPyramid = mutableListOf<Card>()
+    var playerList = mutableListOf<Player>()
 
     lateinit var playerOneScore : TextView
     lateinit var playerTwoScore : TextView
     lateinit var playerThreeScore : TextView
     lateinit var playerFourScore : TextView
-    var scoreP1 = 0
-    var scoreP2 = 0
-    var scoreP3 = 0
-    var scoreP4 = 0
+
 
 
 
@@ -42,36 +39,45 @@ class CardgameActivity : AppCompatActivity() {
         setContentView(R.layout.cardgame_activity)
         initiatePlayerScoreViews()
         amountOfPlayers()
-
-
+        initiateDeckOfCards()
 
     }
 
     override fun onStart() {
         super.onStart()
-        initiateDeckOfCards()
         deckOfCards.shuffle()
-
         initiateCardsOnBoard()
-        activateFirstRowClick()
+        startGame()
+    }
 
+    fun startGame(){
+        activateFirstRow()
     }
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
-    //scoreP1-scoreP4 för att visa poängen
+    //de olika objekten av spelare. Dessa sparas i listan playerList som nås över hela klassen.
+
     fun initiatePlayerScoreViews() {
 
+        var player1 = Player("Player 1", 0)
         playerOneScore = findViewById(R.id.counterOne)
-        playerOneScore.text = scoreP1.toString()
+        "${player1.name}: ${player1.score}".also { playerOneScore.text = it }
+        playerList.add(player1)
 
+        var player2 = Player("Player 2", 0)
         playerTwoScore = findViewById(R.id.counterTwo)
-        playerTwoScore.text = scoreP2.toString()
+        "${player2.name}: ${player2.score}".also { playerTwoScore.text = it }
+        playerList.add(player2)
 
+        var player3 = Player("Player 3", 0)
         playerThreeScore = findViewById(R.id.counterThree)
-        playerThreeScore.text = scoreP3.toString()
+        "${player3.name}: ${player3.score}".also { playerThreeScore.text = it }
+        playerList.add(player3)
 
+        var player4 = Player("Player 4", 0)
         playerFourScore = findViewById(R.id.counterFour)
-        playerFourScore.text = scoreP4.toString()
+        "${player4.name}:  ${player4.score}".also { playerFourScore.text = it }
+        playerList.add(player4)
     }
 
 
@@ -99,32 +105,30 @@ class CardgameActivity : AppCompatActivity() {
     }
 
 
-    fun activateFirstRowClick() {
+    fun activateFirstRow() {
 
         var rowList = mutableListOf<ImageView>(imageViewList[0], imageViewList[1], imageViewList[2], imageViewList[3], imageViewList[4])
 
             imageViewList[0].setOnClickListener { changeBackgroundHelperMethod(imageViewList[0])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostGame()
 
             }
             imageViewList[1].setOnClickListener { changeBackgroundHelperMethod(imageViewList[1])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostGame()
             }
             imageViewList[2].setOnClickListener { changeBackgroundHelperMethod(imageViewList[2])
                 diableClickRow( rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostGame()
             }
             imageViewList[3].setOnClickListener { changeBackgroundHelperMethod(imageViewList[3])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostGame()
             }
             imageViewList[4].setOnClickListener { changeBackgroundHelperMethod(imageViewList[4])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard){ activateSecondRow()
-                }
-
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostGame()
             }
     }
 
@@ -134,20 +138,20 @@ class CardgameActivity : AppCompatActivity() {
 
         imageViewList[5].setOnClickListener { changeBackgroundHelperMethod(imageViewList[5])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow()else lostGame()
 
         }
         imageViewList[6].setOnClickListener { changeBackgroundHelperMethod(imageViewList[6])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow() else lostGame()
         }
         imageViewList[7].setOnClickListener { changeBackgroundHelperMethod(imageViewList[7])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow() else lostGame()
         }
         imageViewList[8].setOnClickListener { changeBackgroundHelperMethod(imageViewList[8])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow() else lostGame()
 
         }
     }
@@ -157,17 +161,17 @@ class CardgameActivity : AppCompatActivity() {
 
         imageViewList[9].setOnClickListener { changeBackgroundHelperMethod(imageViewList[9])
             diableClickRow(rowList)
-            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()}
+            if (!cardsInPyramid[2].isFaceCard) activateFourthRow() else lostGame()
 
         }
         imageViewList[10].setOnClickListener { changeBackgroundHelperMethod(imageViewList[10])
-            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()}
+            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()} else lostGame()
 
         }
         imageViewList[11].setOnClickListener { changeBackgroundHelperMethod(imageViewList[11])
             diableClickRow( rowList)
             activateFourthRow()
-            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()}
+            if (!cardsInPyramid[2].isFaceCard) activateFourthRow() else lostGame()
 
         }
     }
@@ -177,14 +181,11 @@ class CardgameActivity : AppCompatActivity() {
 
         imageViewList[12].setOnClickListener { changeBackgroundHelperMethod(imageViewList[12])
             diableClickRow(rowList)
-            activateFifthrow()
-            Log.d("!!!", cardsInPyramid[3].name + cardsInPyramid[3].isFaceCard.toString())
-            if (!cardsInPyramid[3].isFaceCard){ activateFifthrow()}
+            if (!cardsInPyramid[3].isFaceCard) activateFifthrow() else lostGame()
         }
         imageViewList[13].setOnClickListener { changeBackgroundHelperMethod(imageViewList[13])
             diableClickRow(rowList)
-            activateFifthrow()
-            if (!cardsInPyramid[3].isFaceCard){ activateFifthrow()}
+            if (!cardsInPyramid[3].isFaceCard) activateFifthrow() else lostGame()
         }
 
     }
@@ -194,12 +195,34 @@ class CardgameActivity : AppCompatActivity() {
 
         imageViewList[14].setOnClickListener { changeBackgroundHelperMethod(imageViewList[14])
             diableClickRow(rowList)
-            //if (!cardsInPyramid[4].isFaceCard)
-
+            if (!cardsInPyramid[4].isFaceCard) wonGame() else lostGame()
         }
     }
 
 
+    fun wonGame() {
+        var message =AlertDialog.Builder(this)
+
+        message.setTitle("Vinst!")
+        message.setMessage("Player tar hem 1 poäng!")
+        message.show()
+
+    }
+
+    fun lostGame() {
+        var message =AlertDialog.Builder(this)
+
+        message.setTitle("Förlust!")
+        message.setMessage("Player hamnade på ett klätt kort och får därför inga poäng denna omgången!")
+        message.show()
+
+    }
+
+    fun resetPictures() {
+        for (image in imageViewList) {
+            image.setImageResource(R.drawable.cardback)
+        }
+    }
 
 
     fun diableClickRow(imageViewList: List<ImageView>){
@@ -387,7 +410,6 @@ class CardgameActivity : AppCompatActivity() {
         deckOfCards.add(Card("jack_of_diamonds", isFaceCard = true))
         deckOfCards.add(Card("queen_of_diamonds", isFaceCard = true))
         deckOfCards.add(Card("king_of_diamonds", isFaceCard = true))
-
 
     }
 }
