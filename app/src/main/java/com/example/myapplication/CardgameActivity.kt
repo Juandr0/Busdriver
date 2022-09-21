@@ -40,9 +40,9 @@ class CardgameActivity : AppCompatActivity() {
         setContentView(R.layout.cardgame_activity)
         initiatePlayerScoreViews()
         amountOfPlayers()
-        initiateCardsOnBoard()
         initiateDeckOfCards()
         deckOfCards.shuffle()
+        initiateCardsOnBoard()
     }
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
