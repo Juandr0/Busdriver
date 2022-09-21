@@ -19,7 +19,6 @@ class NumOfPlayersActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.numofplayers_activity)
-
         initiateView()
         activateClickListeners()
     }
@@ -31,25 +30,25 @@ class NumOfPlayersActivity : AppCompatActivity() {
 
     fun activateClickListeners(){
         onePlayer.setOnClickListener {
-            intent = Intent(this, CardgameActivity::class.java)
+            intent = Intent(this, ChangePlayerNameView::class.java)
             intent.putExtra("numOfPlayers", 1)
             startActivity(intent)
         }
 
         twoPlayers.setOnClickListener {
-            intent = Intent(this, CardgameActivity::class.java)
+            intent = Intent(this, ChangePlayerNameView::class.java)
             intent.putExtra("numOfPlayers", 2)
             startActivity(intent)
         }
 
         threePlayers.setOnClickListener {
-            intent = Intent(this, CardgameActivity::class.java)
+            intent = Intent(this, ChangePlayerNameView::class.java)
             intent.putExtra("numOfPlayers", 3)
             startActivity(intent)
         }
 
         fourPlayers.setOnClickListener {
-            intent = Intent(this, CardgameActivity::class.java)
+            intent = Intent(this, ChangePlayerNameView::class.java)
             intent.putExtra("numOfPlayers", 4)
             startActivity(intent)
         }

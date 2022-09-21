@@ -23,6 +23,9 @@
             android:name=".CardgameActivity"
             android:exported="false" />
         <activity
+            android:name="ChangePlayerNameView"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
