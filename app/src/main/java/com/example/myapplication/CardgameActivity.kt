@@ -2,7 +2,6 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -43,6 +42,9 @@ class CardgameActivity : AppCompatActivity() {
         initiateDeckOfCards()
         deckOfCards.shuffle()
         initiateCardsOnBoard()
+        activateFirstRow()
+
+
     }
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
@@ -86,87 +88,76 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
+    fun disableRemainingButtons() {
+
+    }
+    fun activateFirstRow() {
+            imageViewList[0].setOnClickListener { changeBackgroundHelperMethod(imageViewList[0], deckOfCards) }
+            imageViewList[1].setOnClickListener { changeBackgroundHelperMethod(imageViewList[1], deckOfCards) }
+            imageViewList[2].setOnClickListener { changeBackgroundHelperMethod(imageViewList[2], deckOfCards) }
+            imageViewList[3].setOnClickListener { changeBackgroundHelperMethod(imageViewList[3], deckOfCards) }
+            imageViewList[4].setOnClickListener { changeBackgroundHelperMethod(imageViewList[4], deckOfCards) }
+    }
+
+
+    fun activateSecondRow() {
+
+    }
+
     fun initiateCardsOnBoard() {
 
         //Första raden nedifrån
-
         var firstRowFirstCard = findViewById<ImageView>(R.id.firstRowFirstCard)
-        imageViewList.add(firstRowFirstCard)
-
         var firstRowSecondCard = findViewById<ImageView>(R.id.firstRowSecondCard)
-        imageViewList.add(firstRowSecondCard)
-
         var firstRowThirdCard = findViewById<ImageView>(R.id.firstRowThirdCard)
-        imageViewList.add(firstRowThirdCard)
-
         var firstRowFourthCard = findViewById<ImageView>(R.id.firstRowFourthCard)
-        imageViewList.add(firstRowFourthCard)
-
         var firstRowFifthCard = findViewById<ImageView>(R.id.firstRowFifthCard)
+
+
+        imageViewList.add(firstRowFirstCard)
+        imageViewList.add(firstRowSecondCard)
+        imageViewList.add(firstRowThirdCard)
+        imageViewList.add(firstRowFourthCard)
         imageViewList.add(firstRowFifthCard)
 
         //Andra raden nedifrån
         var secondRowFirstCard = findViewById<ImageView>(R.id.secondRowFirstCard)
-        imageViewList.add(secondRowFirstCard)
-
         var secondRowSecondCard = findViewById<ImageView>(R.id.secondRowSecondCard)
-        imageViewList.add(secondRowSecondCard)
-
         var secondRowThirdCard = findViewById<ImageView>(R.id.secondRowThirdCard)
-        imageViewList.add(secondRowThirdCard)
-
         var secondRowFourthCard = findViewById<ImageView>(R.id.secondRowFourthCard)
+
+        imageViewList.add(secondRowFirstCard)
+        imageViewList.add(secondRowSecondCard)
+        imageViewList.add(secondRowThirdCard)
         imageViewList.add(secondRowFourthCard)
-
-
         //Tredje raden nedifrån
 
         var thirdRowFirstCard = findViewById<ImageView>(R.id.thirdRowFirstCard)
-        imageViewList.add(thirdRowFirstCard)
-
         var thirdRowSecondCard = findViewById<ImageView>(R.id.thirdRowSecondCard)
-        imageViewList.add(thirdRowSecondCard)
-
         var thirdRowThirdCard = findViewById<ImageView>(R.id.thirdRowThirdCard)
-        imageViewList.add(thirdRowThirdCard)
 
+
+        imageViewList.add(thirdRowFirstCard)
+        imageViewList.add(thirdRowSecondCard)
+        imageViewList.add(thirdRowThirdCard)
         //Fjärde raden nedifrån
 
         var fourthRowFirstCard = findViewById<ImageView>(R.id.fourthRowFirstCard)
-        imageViewList.add(fourthRowFirstCard)
-
         var fourthRowSecondCard = findViewById<ImageView>(R.id.fourthRowSecondCard)
-        imageViewList.add(fourthRowSecondCard)
 
+        imageViewList.add(fourthRowFirstCard)
+        imageViewList.add(fourthRowSecondCard)
         //Femte raden nedifrån
+
         var fifthRowFirstCard = findViewById<ImageView>(R.id.fifthRowFirstCard)
         imageViewList.add(fifthRowFirstCard)
 
-
-        firstRowFirstCard.setOnClickListener  { helperMethodClicker( firstRowFirstCard, deckOfCards)    }
-        firstRowSecondCard.setOnClickListener { helperMethodClicker( firstRowSecondCard, deckOfCards)   }
-        firstRowThirdCard.setOnClickListener  { helperMethodClicker( firstRowThirdCard, deckOfCards)    }
-        firstRowFourthCard.setOnClickListener { helperMethodClicker( firstRowFourthCard, deckOfCards)   }
-        firstRowFifthCard.setOnClickListener  { helperMethodClicker( firstRowFifthCard, deckOfCards)    }
-
-        secondRowFirstCard.setOnClickListener  { helperMethodClicker( secondRowFirstCard, deckOfCards)  }
-        secondRowSecondCard.setOnClickListener { helperMethodClicker( secondRowSecondCard, deckOfCards) }
-        secondRowThirdCard.setOnClickListener  { helperMethodClicker( secondRowThirdCard, deckOfCards)  }
-        secondRowFourthCard.setOnClickListener { helperMethodClicker( secondRowFourthCard, deckOfCards) }
-
-        thirdRowFirstCard.setOnClickListener   { helperMethodClicker( thirdRowFirstCard, deckOfCards)   }
-        thirdRowSecondCard.setOnClickListener  { helperMethodClicker( thirdRowSecondCard, deckOfCards)  }
-        thirdRowThirdCard.setOnClickListener   { helperMethodClicker( thirdRowThirdCard, deckOfCards)   }
-
-        fourthRowFirstCard.setOnClickListener  { helperMethodClicker( fourthRowFirstCard, deckOfCards)  }
-        fourthRowSecondCard.setOnClickListener { helperMethodClicker( fourthRowSecondCard, deckOfCards) }
-
-        fifthRowFirstCard.setOnClickListener   { helperMethodClicker( fifthRowFirstCard, deckOfCards) }
-
-
     }
 
-    fun helperMethodClicker(imageView: ImageView, cardList: MutableList<Card>){
+
+
+
+    fun changeBackgroundHelperMethod(imageView: ImageView, cardList: MutableList<Card>){
         when (cardList[0].name){
             "ace_of_spades" -> imageView.setImageResource(R.drawable.ace_of_spades)
             "two_of_spades" -> imageView.setImageResource(R.drawable.two_of_spades)
