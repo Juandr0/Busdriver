@@ -20,6 +20,9 @@ class Card (var name : String, var isFaceCard : Boolean = false) {
 
 class CardgameActivity : AppCompatActivity() {
 
+    var imageViewList = mutableListOf<ImageView>()
+    var deckOfCards = mutableListOf<Card>()
+
     lateinit var playerOneScore : TextView
     lateinit var playerTwoScore : TextView
     lateinit var playerThreeScore : TextView
@@ -35,17 +38,11 @@ class CardgameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cardgame_activity)
-
-        var deckOfCards = initiateDeckOfCards()
-        deckOfCards.shuffle()
-
         initiatePlayerScoreViews()
-        initiateCardsOnBoard()
         amountOfPlayers()
-        asignCardsToPyramid(deckOfCards)
-
-        
-
+        initiateCardsOnBoard()
+        initiateDeckOfCards()
+        deckOfCards.shuffle()
     }
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
@@ -89,160 +86,212 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
-    fun asignCardsToPyramid(cardList : MutableList<Card>){
-
-        //Första raden, 5 kort
-        val firstRowFirstCard = cardList[0]
-        val firstRowSecondCard = cardList[1]
-        val firstRowThirdCard = cardList[2]
-        val firstRowFourthCard = cardList[3]
-        val firstRowFifthCard= cardList[4]
-
-        //Andra raden, 4 kort
-        val secondRowFirstCard = cardList[5]
-        val secondRowSecondCard= cardList[6]
-        val secondRowThirdCard = cardList[7]
-        val secondRowForuthCard= cardList[8]
-
-        //Tredje raden, 3 kort
-        val thirdRowFirstCard = cardList[9]
-        val thirdRowSecondCard = cardList[10]
-        val thirdRowThirdCard = cardList[11]
-
-        //Fjärde raden, 2 kort
-        val fourthRowFirstCard = cardList[12]
-        val fourthRowSecondCard = cardList[13]
-
-        //Fämte raden, 1 kort
-        val fifthRowFirstCard = cardList[14]
-
-    }
-
     fun initiateCardsOnBoard() {
+
         //Första raden nedifrån
+
         var firstRowFirstCard = findViewById<ImageView>(R.id.firstRowFirstCard)
-        firstRowFirstCard.setOnClickListener {  }
+        imageViewList.add(firstRowFirstCard)
 
         var firstRowSecondCard = findViewById<ImageView>(R.id.firstRowSecondCard)
-        firstRowSecondCard.setOnClickListener {  }
+        imageViewList.add(firstRowSecondCard)
 
         var firstRowThirdCard = findViewById<ImageView>(R.id.firstRowThirdCard)
-        firstRowThirdCard.setOnClickListener {  }
+        imageViewList.add(firstRowThirdCard)
 
         var firstRowFourthCard = findViewById<ImageView>(R.id.firstRowFourthCard)
-        firstRowFourthCard.setOnClickListener {  }
+        imageViewList.add(firstRowFourthCard)
 
         var firstRowFifthCard = findViewById<ImageView>(R.id.firstRowFifthCard)
-        firstRowFifthCard.setOnClickListener {  }
+        imageViewList.add(firstRowFifthCard)
 
         //Andra raden nedifrån
         var secondRowFirstCard = findViewById<ImageView>(R.id.secondRowFirstCard)
-        secondRowFirstCard.setOnClickListener {  }
+        imageViewList.add(secondRowFirstCard)
 
         var secondRowSecondCard = findViewById<ImageView>(R.id.secondRowSecondCard)
-        secondRowSecondCard.setOnClickListener {  }
+        imageViewList.add(secondRowSecondCard)
 
         var secondRowThirdCard = findViewById<ImageView>(R.id.secondRowThirdCard)
-        secondRowThirdCard.setOnClickListener {  }
+        imageViewList.add(secondRowThirdCard)
 
         var secondRowFourthCard = findViewById<ImageView>(R.id.secondRowFourthCard)
-        secondRowFourthCard.setOnClickListener {  }
+        imageViewList.add(secondRowFourthCard)
+
 
         //Tredje raden nedifrån
 
         var thirdRowFirstCard = findViewById<ImageView>(R.id.thirdRowFirstCard)
-        thirdRowFirstCard.setOnClickListener {  }
+        imageViewList.add(thirdRowFirstCard)
 
         var thirdRowSecondCard = findViewById<ImageView>(R.id.thirdRowSecondCard)
-        thirdRowSecondCard.setOnClickListener {  }
+        imageViewList.add(thirdRowSecondCard)
 
         var thirdRowThirdCard = findViewById<ImageView>(R.id.thirdRowThirdCard)
-        thirdRowThirdCard.setOnClickListener {  }
+        imageViewList.add(thirdRowThirdCard)
 
         //Fjärde raden nedifrån
 
         var fourthRowFirstCard = findViewById<ImageView>(R.id.fourthRowFirstCard)
-        fourthRowFirstCard.setOnClickListener {  }
+        imageViewList.add(fourthRowFirstCard)
 
         var fourthRowSecondCard = findViewById<ImageView>(R.id.fourthRowSecondCard)
-        fourthRowSecondCard.setOnClickListener {  }
+        imageViewList.add(fourthRowSecondCard)
 
         //Femte raden nedifrån
         var fifthRowFirstCard = findViewById<ImageView>(R.id.fifthRowFirstCard)
-        fifthRowFirstCard.setOnClickListener {  }
+        imageViewList.add(fifthRowFirstCard)
+
+
+        firstRowFirstCard.setOnClickListener  { helperMethodClicker( firstRowFirstCard, deckOfCards)    }
+        firstRowSecondCard.setOnClickListener { helperMethodClicker( firstRowSecondCard, deckOfCards)   }
+        firstRowThirdCard.setOnClickListener  { helperMethodClicker( firstRowThirdCard, deckOfCards)    }
+        firstRowFourthCard.setOnClickListener { helperMethodClicker( firstRowFourthCard, deckOfCards)   }
+        firstRowFifthCard.setOnClickListener  { helperMethodClicker( firstRowFifthCard, deckOfCards)    }
+
+        secondRowFirstCard.setOnClickListener  { helperMethodClicker( secondRowFirstCard, deckOfCards)  }
+        secondRowSecondCard.setOnClickListener { helperMethodClicker( secondRowSecondCard, deckOfCards) }
+        secondRowThirdCard.setOnClickListener  { helperMethodClicker( secondRowThirdCard, deckOfCards)  }
+        secondRowFourthCard.setOnClickListener { helperMethodClicker( secondRowFourthCard, deckOfCards) }
+
+        thirdRowFirstCard.setOnClickListener   { helperMethodClicker( thirdRowFirstCard, deckOfCards)   }
+        thirdRowSecondCard.setOnClickListener  { helperMethodClicker( thirdRowSecondCard, deckOfCards)  }
+        thirdRowThirdCard.setOnClickListener   { helperMethodClicker( thirdRowThirdCard, deckOfCards)   }
+
+        fourthRowFirstCard.setOnClickListener  { helperMethodClicker( fourthRowFirstCard, deckOfCards)  }
+        fourthRowSecondCard.setOnClickListener { helperMethodClicker( fourthRowSecondCard, deckOfCards) }
+
+        fifthRowFirstCard.setOnClickListener   { helperMethodClicker( fifthRowFirstCard, deckOfCards) }
+
 
     }
 
+    fun helperMethodClicker(imageView: ImageView, cardList: MutableList<Card>){
+        when (cardList[0].name){
+            "ace_of_spades" -> imageView.setImageResource(R.drawable.ace_of_spades)
+            "two_of_spades" -> imageView.setImageResource(R.drawable.two_of_spades)
+            "three_of_spades" -> imageView.setImageResource(R.drawable.three_of_spades)
+            "four_of_spades" -> imageView.setImageResource(R.drawable.four_of_spades)
+            "five_of_spades" -> imageView.setImageResource(R.drawable.five_of_spades)
+            "six_of_spades" -> imageView.setImageResource(R.drawable.six_of_spades)
+            "seven_of_spades" -> imageView.setImageResource(R.drawable.seven_of_spades)
+            "eight_of_spades" -> imageView.setImageResource(R.drawable.eight_of_spades)
+            "nine_of_spades" -> imageView.setImageResource(R.drawable.nine_of_spades)
+            "ten_of_spades" -> imageView.setImageResource(R.drawable.ten_of_spades)
+            "jack_of_spades" -> imageView.setImageResource(R.drawable.jack_of_spades)
+            "queen_of_spades" -> imageView.setImageResource(R.drawable.queen_of_spades)
+            "king_of_spades" -> imageView.setImageResource(R.drawable.king_of_spades)
 
+            "ace_of_diamonds" -> imageView.setImageResource(R.drawable.ace_of_diamonds)
+            "two_of_diamonds" -> imageView.setImageResource(R.drawable.two_of_diamonds)
+            "three_of_diamonds" -> imageView.setImageResource(R.drawable.three_of_diamonds)
+            "four_of_diamonds" -> imageView.setImageResource(R.drawable.four_of_diamonds)
+            "five_of_diamonds" -> imageView.setImageResource(R.drawable.five_of_diamonds)
+            "six_of_diamonds" -> imageView.setImageResource(R.drawable.six_of_diamonds)
+            "seven_of_diamonds" -> imageView.setImageResource(R.drawable.seven_of_diamonds)
+            "eight_of_diamonds" -> imageView.setImageResource(R.drawable.eight_of_diamonds)
+            "nine_of_diamonds" -> imageView.setImageResource(R.drawable.nine_of_diamonds)
+            "ten_of_diamonds" -> imageView.setImageResource(R.drawable.ten_of_diamonds)
+            "jack_of_diamonds" -> imageView.setImageResource(R.drawable.jack_of_diamonds)
+            "queen_of_diamonds" -> imageView.setImageResource(R.drawable.queen_of_diamonds)
+            "king_of_diamonds" -> imageView.setImageResource(R.drawable.king_of_diamonds)
 
-    fun initiateDeckOfCards () : MutableList<Card>{
+            "ace_of_hearts" -> imageView.setImageResource(R.drawable.ace_of_hearts)
+            "two_of_hearts" -> imageView.setImageResource(R.drawable.two_of_hearts)
+            "three_of_hearts" -> imageView.setImageResource(R.drawable.three_of_hearts)
+            "four_of_hearts" -> imageView.setImageResource(R.drawable.four_of_hearts)
+            "five_of_hearts" -> imageView.setImageResource(R.drawable.five_of_hearts)
+            "six_of_hearts" -> imageView.setImageResource(R.drawable.six_of_hearts)
+            "seven_of_hearts" -> imageView.setImageResource(R.drawable.seven_of_hearts)
+            "eight_of_hearts" -> imageView.setImageResource(R.drawable.eight_of_hearts)
+            "nine_of_hearts" -> imageView.setImageResource(R.drawable.nine_of_hearts)
+            "ten_of_hearts" -> imageView.setImageResource(R.drawable.ten_of_hearts)
+            "jack_of_hearts" -> imageView.setImageResource(R.drawable.jack_of_hearts)
+            "queen_of_hearts" -> imageView.setImageResource(R.drawable.queen_of_hearts)
+            "king_of_hearts" -> imageView.setImageResource(R.drawable.king_of_hearts)
 
-        var cardList = mutableListOf<Card>()
+            "ace_of_clubs" -> imageView.setImageResource(R.drawable.ace_of_clubs)
+            "two_of_clubs" -> imageView.setImageResource(R.drawable.two_of_clubs)
+            "three_of_clubs" -> imageView.setImageResource(R.drawable.three_of_clubs)
+            "four_of_clubs" -> imageView.setImageResource(R.drawable.four_of_clubs)
+            "five_of_clubs" -> imageView.setImageResource(R.drawable.five_of_clubs)
+            "six_of_clubs" -> imageView.setImageResource(R.drawable.six_of_clubs)
+            "seven_of_clubs" -> imageView.setImageResource(R.drawable.seven_of_clubs)
+            "eight_of_clubs" -> imageView.setImageResource(R.drawable.eight_of_clubs)
+            "nine_of_clubs" -> imageView.setImageResource(R.drawable.nine_of_clubs)
+            "ten_of_clubs" -> imageView.setImageResource(R.drawable.ten_of_clubs)
+            "jack_of_clubs" -> imageView.setImageResource(R.drawable.jack_of_clubs)
+            "queen_of_clubs" -> imageView.setImageResource(R.drawable.queen_of_clubs)
+            "king_of_clubs" -> imageView.setImageResource(R.drawable.king_of_clubs)
+        }
+        cardList.removeAt(0)
+    }
+
+    fun initiateDeckOfCards () {
 
         //Spader
-        cardList.add(Card("ace_of_spades"))
-        cardList.add(Card("two_of_spades"))
-        cardList.add(Card("three_of_spades"))
-        cardList.add(Card("four_of_spades"))
-        cardList.add(Card("five_of_spades"))
-        cardList.add(Card("six_of_spades"))
-        cardList.add(Card("seven_of_spades"))
-        cardList.add(Card("eight_of_spades"))
-        cardList.add(Card("nine_of_spades"))
-        cardList.add(Card("ten_of_spades"))
-        cardList.add(Card("knight_of_spades", isFaceCard = true))
-        cardList.add(Card("queen_of_spades", isFaceCard = true))
-        cardList.add(Card("king_of_spades", isFaceCard = true))
+
+        deckOfCards.add(Card("ace_of_spades"))
+        deckOfCards.add(Card("two_of_spades"))
+        deckOfCards.add(Card("three_of_spades"))
+        deckOfCards.add(Card("four_of_spades"))
+        deckOfCards.add(Card("five_of_spades"))
+        deckOfCards.add(Card("six_of_spades"))
+        deckOfCards.add(Card("seven_of_spades"))
+        deckOfCards.add(Card("eight_of_spades"))
+        deckOfCards.add(Card("nine_of_spades"))
+        deckOfCards.add(Card("ten_of_spades"))
+        deckOfCards.add(Card("knight_of_spades", isFaceCard = true))
+        deckOfCards.add(Card("queen_of_spades", isFaceCard = true))
+        deckOfCards.add(Card("king_of_spades", isFaceCard = true))
 
         //Hjärter
-        cardList.add(Card("ace_of_hearts"))
-        cardList.add(Card("two_of_hearts"))
-        cardList.add(Card("three_of_hearts"))
-        cardList.add(Card("four_of_hearts"))
-        cardList.add(Card("five_of_hearts"))
-        cardList.add(Card("six_of_hearts"))
-        cardList.add(Card("seven_of_hearts"))
-        cardList.add(Card("eight_of_hearts"))
-        cardList.add(Card("nine_of_hearts"))
-        cardList.add(Card("ten_of_hearts"))
-        cardList.add(Card("knight_of_hearts", isFaceCard = true))
-        cardList.add(Card("queen_of_hearts", isFaceCard = true))
-        cardList.add(Card("king_of_hearts", isFaceCard = true))
+        deckOfCards.add(Card("ace_of_hearts"))
+        deckOfCards.add(Card("two_of_hearts"))
+        deckOfCards.add(Card("three_of_hearts"))
+        deckOfCards.add(Card("four_of_hearts"))
+        deckOfCards.add(Card("five_of_hearts"))
+        deckOfCards.add(Card("six_of_hearts"))
+        deckOfCards.add(Card("seven_of_hearts"))
+        deckOfCards.add(Card("eight_of_hearts"))
+        deckOfCards.add(Card("nine_of_hearts"))
+        deckOfCards.add(Card("ten_of_hearts"))
+        deckOfCards.add(Card("knight_of_hearts", isFaceCard = true))
+        deckOfCards.add(Card("queen_of_hearts", isFaceCard = true))
+        deckOfCards.add(Card("king_of_hearts", isFaceCard = true))
 
         //Klöver
 
-        cardList.add(Card("ace_of_clubs"))
-        cardList.add(Card("two_of_clubs"))
-        cardList.add(Card("three_of_clubs"))
-        cardList.add(Card("four_of_clubs"))
-        cardList.add(Card("five_of_clubs"))
-        cardList.add(Card("six_of_clubs"))
-        cardList.add(Card("seven_of_clubs"))
-        cardList.add(Card("eight_of_clubs"))
-        cardList.add(Card("nine_of_clubs"))
-        cardList.add(Card("ten_of_clubs"))
-        cardList.add(Card("knight_of_clubs", isFaceCard = true))
-        cardList.add(Card("queen_of_clubs", isFaceCard = true))
-        cardList.add(Card("king_of_clubs", isFaceCard = true))
+        deckOfCards.add(Card("ace_of_clubs"))
+        deckOfCards.add(Card("two_of_clubs"))
+        deckOfCards.add(Card("three_of_clubs"))
+        deckOfCards.add(Card("four_of_clubs"))
+        deckOfCards.add(Card("five_of_clubs"))
+        deckOfCards.add(Card("six_of_clubs"))
+        deckOfCards.add(Card("seven_of_clubs"))
+        deckOfCards.add(Card("eight_of_clubs"))
+        deckOfCards.add(Card("nine_of_clubs"))
+        deckOfCards.add(Card("ten_of_clubs"))
+        deckOfCards.add(Card("knight_of_clubs", isFaceCard = true))
+        deckOfCards.add(Card("queen_of_clubs", isFaceCard = true))
+        deckOfCards.add(Card("king_of_clubs", isFaceCard = true))
 
         //Ruter
-        cardList.add(Card("ace_of_diamonds"))
-        cardList.add(Card("two_of_diamonds"))
-        cardList.add(Card("three_of_diamonds"))
-        cardList.add(Card("four_of_diamonds"))
-        cardList.add(Card("five_of_diamonds"))
-        cardList.add(Card("six_of_diamonds"))
-        cardList.add(Card("seven_of_diamonds"))
-        cardList.add(Card("eight_of_diamonds"))
-        cardList.add(Card("nine_of_diamonds"))
-        cardList.add(Card("ten_of_diamonds"))
-        cardList.add(Card("knight_of_diamonds", isFaceCard = true))
-        cardList.add(Card("queen_of_diamonds", isFaceCard = true))
-        cardList.add(Card("king_of_diamonds", isFaceCard = true))
+        deckOfCards.add(Card("ace_of_diamonds"))
+        deckOfCards.add(Card("two_of_diamonds"))
+        deckOfCards.add(Card("three_of_diamonds"))
+        deckOfCards.add(Card("four_of_diamonds"))
+        deckOfCards.add(Card("five_of_diamonds"))
+        deckOfCards.add(Card("six_of_diamonds"))
+        deckOfCards.add(Card("seven_of_diamonds"))
+        deckOfCards.add(Card("eight_of_diamonds"))
+        deckOfCards.add(Card("nine_of_diamonds"))
+        deckOfCards.add(Card("ten_of_diamonds"))
+        deckOfCards.add(Card("knight_of_diamonds", isFaceCard = true))
+        deckOfCards.add(Card("queen_of_diamonds", isFaceCard = true))
+        deckOfCards.add(Card("king_of_diamonds", isFaceCard = true))
 
 
-
-    return cardList
     }
 }
 
