@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,6 +23,7 @@ class CardgameActivity : AppCompatActivity() {
 
     var imageViewList = mutableListOf<ImageView>()
     var deckOfCards = mutableListOf<Card>()
+    var cardsInPyramid = mutableListOf<Card>()
 
     lateinit var playerOneScore : TextView
     lateinit var playerTwoScore : TextView
@@ -39,11 +42,18 @@ class CardgameActivity : AppCompatActivity() {
         setContentView(R.layout.cardgame_activity)
         initiatePlayerScoreViews()
         amountOfPlayers()
+
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
         initiateDeckOfCards()
         deckOfCards.shuffle()
-        initiateCardsOnBoard()
-        activateFirstRow()
 
+        initiateCardsOnBoard()
+        activateFirstRowClick()
 
     }
 
@@ -88,21 +98,116 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
-    fun disableRemainingButtons() {
 
-    }
-    fun activateFirstRow() {
-            imageViewList[0].setOnClickListener { changeBackgroundHelperMethod(imageViewList[0], deckOfCards) }
-            imageViewList[1].setOnClickListener { changeBackgroundHelperMethod(imageViewList[1], deckOfCards) }
-            imageViewList[2].setOnClickListener { changeBackgroundHelperMethod(imageViewList[2], deckOfCards) }
-            imageViewList[3].setOnClickListener { changeBackgroundHelperMethod(imageViewList[3], deckOfCards) }
-            imageViewList[4].setOnClickListener { changeBackgroundHelperMethod(imageViewList[4], deckOfCards) }
-    }
+    fun activateFirstRowClick() {
 
+        var rowList = mutableListOf<ImageView>(imageViewList[0], imageViewList[1], imageViewList[2], imageViewList[3], imageViewList[4])
+
+            imageViewList[0].setOnClickListener { changeBackgroundHelperMethod(imageViewList[0])
+                diableClickRow(rowList)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+
+            }
+            imageViewList[1].setOnClickListener { changeBackgroundHelperMethod(imageViewList[1])
+                diableClickRow(rowList)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+            }
+            imageViewList[2].setOnClickListener { changeBackgroundHelperMethod(imageViewList[2])
+                diableClickRow( rowList)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+            }
+            imageViewList[3].setOnClickListener { changeBackgroundHelperMethod(imageViewList[3])
+                diableClickRow(rowList)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow()
+            }
+            imageViewList[4].setOnClickListener { changeBackgroundHelperMethod(imageViewList[4])
+                diableClickRow(rowList)
+                if (!cardsInPyramid[0].isFaceCard){ activateSecondRow()
+                }
+
+            }
+    }
 
     fun activateSecondRow() {
 
+        var rowList = mutableListOf<ImageView>(imageViewList[5], imageViewList[6], imageViewList[7], imageViewList[8])
+
+        imageViewList[5].setOnClickListener { changeBackgroundHelperMethod(imageViewList[5])
+            diableClickRow(rowList)
+            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+
+        }
+        imageViewList[6].setOnClickListener { changeBackgroundHelperMethod(imageViewList[6])
+            diableClickRow(rowList)
+            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+        }
+        imageViewList[7].setOnClickListener { changeBackgroundHelperMethod(imageViewList[7])
+            diableClickRow(rowList)
+            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+        }
+        imageViewList[8].setOnClickListener { changeBackgroundHelperMethod(imageViewList[8])
+            diableClickRow(rowList)
+            if (!cardsInPyramid[1].isFaceCard){ activateThirdRow()}
+
+        }
     }
+
+    fun activateThirdRow() {
+        var rowList = mutableListOf<ImageView>(imageViewList[9], imageViewList[10], imageViewList[11])
+
+        imageViewList[9].setOnClickListener { changeBackgroundHelperMethod(imageViewList[9])
+            diableClickRow(rowList)
+            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()}
+
+        }
+        imageViewList[10].setOnClickListener { changeBackgroundHelperMethod(imageViewList[10])
+            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()}
+
+        }
+        imageViewList[11].setOnClickListener { changeBackgroundHelperMethod(imageViewList[11])
+            diableClickRow( rowList)
+            activateFourthRow()
+            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()}
+
+        }
+    }
+
+    fun activateFourthRow() {
+        var rowList = mutableListOf<ImageView>(imageViewList[12], imageViewList[13])
+
+        imageViewList[12].setOnClickListener { changeBackgroundHelperMethod(imageViewList[12])
+            diableClickRow(rowList)
+            activateFifthrow()
+            Log.d("!!!", cardsInPyramid[3].name + cardsInPyramid[3].isFaceCard.toString())
+            if (!cardsInPyramid[3].isFaceCard){ activateFifthrow()}
+        }
+        imageViewList[13].setOnClickListener { changeBackgroundHelperMethod(imageViewList[13])
+            diableClickRow(rowList)
+            activateFifthrow()
+            if (!cardsInPyramid[3].isFaceCard){ activateFifthrow()}
+        }
+
+    }
+
+    fun activateFifthrow() {
+        var rowList = mutableListOf<ImageView>(imageViewList[14])
+
+        imageViewList[14].setOnClickListener { changeBackgroundHelperMethod(imageViewList[14])
+            diableClickRow(rowList)
+            //if (!cardsInPyramid[4].isFaceCard)
+
+        }
+    }
+
+
+
+
+    fun diableClickRow(imageViewList: List<ImageView>){
+           for (view in imageViewList){
+               view.isClickable = false
+           }
+    }
+
 
     fun initiateCardsOnBoard() {
 
@@ -157,8 +262,8 @@ class CardgameActivity : AppCompatActivity() {
 
 
 
-    fun changeBackgroundHelperMethod(imageView: ImageView, cardList: MutableList<Card>){
-        when (cardList[0].name){
+    fun changeBackgroundHelperMethod(imageView: ImageView){
+        when (deckOfCards[0].name){
             "ace_of_spades" -> imageView.setImageResource(R.drawable.ace_of_spades)
             "two_of_spades" -> imageView.setImageResource(R.drawable.two_of_spades)
             "three_of_spades" -> imageView.setImageResource(R.drawable.three_of_spades)
@@ -215,7 +320,8 @@ class CardgameActivity : AppCompatActivity() {
             "queen_of_clubs" -> imageView.setImageResource(R.drawable.queen_of_clubs)
             "king_of_clubs" -> imageView.setImageResource(R.drawable.king_of_clubs)
         }
-        cardList.removeAt(0)
+        cardsInPyramid.add(deckOfCards[0])
+        deckOfCards.removeAt(0)
     }
 
     fun initiateDeckOfCards () {
@@ -232,7 +338,7 @@ class CardgameActivity : AppCompatActivity() {
         deckOfCards.add(Card("eight_of_spades"))
         deckOfCards.add(Card("nine_of_spades"))
         deckOfCards.add(Card("ten_of_spades"))
-        deckOfCards.add(Card("knight_of_spades", isFaceCard = true))
+        deckOfCards.add(Card("jack_of_spades", isFaceCard = true))
         deckOfCards.add(Card("queen_of_spades", isFaceCard = true))
         deckOfCards.add(Card("king_of_spades", isFaceCard = true))
 
@@ -247,7 +353,7 @@ class CardgameActivity : AppCompatActivity() {
         deckOfCards.add(Card("eight_of_hearts"))
         deckOfCards.add(Card("nine_of_hearts"))
         deckOfCards.add(Card("ten_of_hearts"))
-        deckOfCards.add(Card("knight_of_hearts", isFaceCard = true))
+        deckOfCards.add(Card("jack_of_hearts", isFaceCard = true))
         deckOfCards.add(Card("queen_of_hearts", isFaceCard = true))
         deckOfCards.add(Card("king_of_hearts", isFaceCard = true))
 
@@ -263,7 +369,7 @@ class CardgameActivity : AppCompatActivity() {
         deckOfCards.add(Card("eight_of_clubs"))
         deckOfCards.add(Card("nine_of_clubs"))
         deckOfCards.add(Card("ten_of_clubs"))
-        deckOfCards.add(Card("knight_of_clubs", isFaceCard = true))
+        deckOfCards.add(Card("jack_of_clubs", isFaceCard = true))
         deckOfCards.add(Card("queen_of_clubs", isFaceCard = true))
         deckOfCards.add(Card("king_of_clubs", isFaceCard = true))
 
@@ -278,7 +384,7 @@ class CardgameActivity : AppCompatActivity() {
         deckOfCards.add(Card("eight_of_diamonds"))
         deckOfCards.add(Card("nine_of_diamonds"))
         deckOfCards.add(Card("ten_of_diamonds"))
-        deckOfCards.add(Card("knight_of_diamonds", isFaceCard = true))
+        deckOfCards.add(Card("jack_of_diamonds", isFaceCard = true))
         deckOfCards.add(Card("queen_of_diamonds", isFaceCard = true))
         deckOfCards.add(Card("king_of_diamonds", isFaceCard = true))
 
