@@ -3,49 +3,50 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.TextView
 
 class ChangePlayerNameView : AppCompatActivity() {
 
-    // denna intent ska skickas till CardgameActivity::class.java
-    lateinit var startGameButton : Button
     lateinit var changePlayerNameView : TextView
-    lateinit var playerOneNameInputEdit   : EditText
-    lateinit var playerTwoNameInputEdit   : EditText
-    lateinit var playerThreeNameInputEdit : EditText
-    lateinit var playerFourNameInputEdit  : EditText
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.changeplayername_activity)
 
-        playerOneNameInputEdit.findViewById<EditText>(R.id.playerOneNameInputEdit)
-        playerTwoNameInputEdit.findViewById<EditText>(R.id.playerTwoNameInputEdit)
-        playerThreeNameInputEdit.findViewById<EditText>(R.id.playerThreeNameInputEdit)
-        playerFourNameInputEdit.findViewById<EditText>(R.id.playerFourNameInputEdit)
-
-        changePlayerNameView = findViewById(R.id.changePlayerNameView)
-        changePlayerNameView.text = "Vill du välja själv namn på de som ska spela?"
-
-        startGameButton = findViewById(R.id.startGameButton)
-        startGameButton.text = "Starta spelet"
-
-
 
         val numOfPlayers = getAmountOfPlayers()
-        getEditTextViews(numOfPlayers)
+
+        var playerOneNameInputEdit   : EditText = findViewById<EditText>(R.id.playerOneNameInputEdit)
+        var playerTwoNameInputEdit   : EditText = findViewById<EditText>(R.id.playerTwoNameInputEdit)
+        var playerThreeNameInputEdit : EditText = findViewById<EditText>(R.id.playerThreeNameInputEdit)
+        var playerFourNameInputEdit  : EditText = findViewById<EditText>(R.id.playerFourNameInputEdit)
+
+        var startGameButton : Button = findViewById(R.id.startGameButton)
+        startGameButton.text = "Starta spelet"
+
+        changePlayerNameView = findViewById(R.id.changePlayerNameView)
+        changePlayerNameView.text = "Ange namn på de som ska spela"
+
+        getEditTextViews(numOfPlayers, playerTwoNameInputEdit, playerThreeNameInputEdit, playerFourNameInputEdit)
+
+        startGameButton.setOnClickListener {
+            startGame(playerOneNameInputEdit,playerTwoNameInputEdit, playerThreeNameInputEdit, playerFourNameInputEdit)
+        }
     }
 
+    //Default värdepå edittext om inget anges
 
 
+    fun getAmountOfPlayers() : Int{
+        return intent.getIntExtra("numOfPlayers", 1)
+    }
 
-    fun getEditTextViews(numOfPlayersAsInt : Int) {
-
+    fun getEditTextViews(numOfPlayersAsInt : Int, playerTwoNameInputEdit  : EditText, playerThreeNameInputEdit : EditText, playerFourNameInputEdit : EditText) {
         when (numOfPlayersAsInt) {
             1 -> {
                 playerTwoNameInputEdit.visibility = View.INVISIBLE
@@ -62,11 +63,27 @@ class ChangePlayerNameView : AppCompatActivity() {
             }
 
         }
+    }
+
+    fun startGame(playerOneNameInputEdit : EditText, playerTwoNameInputEdit : EditText, playerThreeNameInputEdit : EditText, playerFourNameInputEdit : EditText, ) {
+        val oldIntent = intent.getIntExtra("numOfPlayers", 1)
+        intent = Intent(this, CardgameActivity::class.java)
+        val playerOneName = playerOneNameInputEdit.text.toString()
+        val playerTwoName = playerTwoNameInputEdit.text.toString()
+        val playerThreeName = playerThreeNameInputEdit.text.toString()
+        val playerFourName = playerFourNameInputEdit.text.toString()
+
+
+
+        intent.putExtra("player1", playerOneName)
+        intent.putExtra("player2", playerTwoName)
+        intent.putExtra("player3", playerThreeName)
+        intent.putExtra("player4", playerFourName)
+        intent.putExtra("numOfPlayers", oldIntent)
+
+        startActivity(intent)
 
     }
 
-    fun getAmountOfPlayers() : Int{
-        return intent.getIntExtra("numOfPlayers", 1)
-    }
 
 }
