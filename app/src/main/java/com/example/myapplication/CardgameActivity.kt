@@ -130,7 +130,7 @@ class CardgameActivity : AppCompatActivity() {
                 playerList.add(player2)
                 playerList.add(player3)
             }
-            3 -> {
+            4 -> {
                 playerList.add(player1)
                 playerList.add(player2)
                 playerList.add(player3)
@@ -279,8 +279,14 @@ class CardgameActivity : AppCompatActivity() {
             startGame()
 
         }
-        builder.show()
-        wonGameCheck()
+        var isGameOver = wonGameCheck()
+        if (!isGameOver) {
+            builder.show()
+        } else {
+
+        }
+
+
 
 
     }
@@ -315,15 +321,17 @@ class CardgameActivity : AppCompatActivity() {
 
     }
 
-    fun wonGameCheck() {
+    fun wonGameCheck() : Boolean{
 
         if (playerList[activePlayerIndex].score == 5){
+
             builder.setTitle(getString(R.string.gameWinnerTitle))
             builder.setMessage(getString(R.string.gameWinnerText,  playerList[activePlayerIndex].name))
             builder.setCancelable(false)
             builder.show()
+            return true
         }
-
+        return false
     }
 
     fun wonRound() {
