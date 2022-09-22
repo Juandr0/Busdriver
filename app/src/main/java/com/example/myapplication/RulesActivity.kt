@@ -36,7 +36,6 @@ class RulesActivity : AppCompatActivity() {
                 "-En spelare spelar åt gången"*/
 
         backButton = findViewById(R.id.backButton)
-        backButton.text = "Tillbaka till huvudmenyn"
         backButton.setOnClickListener {
             finish()
 

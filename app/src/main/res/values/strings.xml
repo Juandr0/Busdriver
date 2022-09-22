@@ -22,8 +22,9 @@
     </string>
 
     <string name="titleView">The busdriver</string>
-    <string name="startButton">Start the game</string>
+    <string name="startButton">Start</string>
     <string name="rulesButton">Rules</string>
+    <string name="backButton">Main menu</string>
 
     <string name="amountOfPlayersView">How many will play?</string>
     <string name="onePlayer">One player</string>
@@ -38,7 +39,7 @@
     <string name="playerThreeNameInputEdit">Name of player 3</string>
     <string name="playerFourNameInputEdit">Name of player 4</string>
 
-    <string name="newTurn">It\'s %3s to play!</string>
+    <string name="newTurn">It\'s %3s\'s turn to play!</string>
     <string name="winTitle">Victory!</string>
     <string name="winText">One point is added to %1s\</string>
     <string name="lossTitle">Loss!</string>
