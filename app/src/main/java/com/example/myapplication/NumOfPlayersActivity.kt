@@ -58,18 +58,11 @@ class NumOfPlayersActivity : AppCompatActivity() {
     fun initiateView() {
 
         amountOfPlayers = findViewById(R.id.amountOfPlayersView)
-        amountOfPlayers.text = "Hur många ska spela?"
 
         onePlayer = findViewById(R.id.onePlayer)
-        onePlayer.text = "En spelare"
 
         twoPlayers = findViewById(R.id.twoPlayers)
-        twoPlayers.text = "Två spelare"
-
         threePlayers = findViewById(R.id.threePlayers)
-        threePlayers.text ="Tre spelare"
-
         fourPlayers = findViewById(R.id.fourPlayers)
-        fourPlayers.text = "Fyra spelare"
     }
 }

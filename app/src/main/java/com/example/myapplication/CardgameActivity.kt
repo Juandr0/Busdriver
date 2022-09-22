@@ -47,21 +47,23 @@ class CardgameActivity : AppCompatActivity() {
         deckOfCards.shuffle()
         initiateCardsOnBoard()
         builder = AlertDialog.Builder(this)
-        // Här är jag! Försöker att skapa en loop som kör igenom spelet tills någon har 5pts.
 
-        for (player in playerList){
-            if (player.score != 5) {
-                startGame(player)
-            }
-        }
+        // Skapa en loop som kör igenom spelet tills någon har 5pts.
+                startGame()
+
 
 
     }
 
 
 
-    fun startGame(player : Player){
-        activateFirstRow(player)
+    fun startGame(){
+        //Hårdkodat temporärt
+        for (player in playerList) {
+            if (player.score != 5) {
+                activateFirstRow(playerList[0])
+            }
+        }
     }
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
@@ -158,7 +160,7 @@ class CardgameActivity : AppCompatActivity() {
 
     fun activateFirstRow(player : Player) {
         var currentPlayer = player
-        Toast.makeText(this,"${player.name}'s tur att spela!",Toast.LENGTH_LONG).show()
+        Toast.makeText(this,getString(R.string.newTurn, player.name),Toast.LENGTH_LONG).show()
         var rowList = mutableListOf<ImageView>(imageViewList[0], imageViewList[1], imageViewList[2], imageViewList[3], imageViewList[4])
 
             imageViewList[0].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[0])
@@ -268,8 +270,8 @@ class CardgameActivity : AppCompatActivity() {
 
     fun wonGame(player : Player) {
 
-        builder.setTitle("Vinst!")
-        builder.setMessage("${player.name} tar hem 1 poäng!")
+        builder.setTitle(getString(R.string.winTitle))
+        builder.setMessage(getString(R.string.winText, player.name))
         builderHelper()
         player.score ++
 
@@ -277,8 +279,8 @@ class CardgameActivity : AppCompatActivity() {
     }
 
     fun lostGame(player : Player) {
-        builder.setTitle("Förlust!")
-        builder.setMessage("${player.name} hamnade på ett klätt kort och får därför inga poäng denna omgången!")
+        builder.setTitle(getString(R.string.lossTitle))
+        builder.setMessage(getString(R.string.lossText, player.name))
         builder.setCancelable(false)
         builderHelper()
 

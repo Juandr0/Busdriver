@@ -1,4 +1,28 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="fifthrowfirstcard">fifthRowFirstCard</string>
+
+    <string name="titleView">The busdriver</string>
+    <string name="startButton">Start the game</string>
+    <string name="rulesButton">Rules</string>
+
+    <string name="amountOfPlayersView">How many will play?</string>
+    <string name="onePlayer">One player</string>
+    <string name="twoPlayers">two players</string>
+    <string name="threePlayers">three players</string>
+    <string name="fourPlayers">four players</string>
+
+    <string name="changePlayerNameView">Please enter player names</string>
+    <string name="startGameButton">Play</string>
+    <string name="playerOneNameInputEdit">Name of player 1</string>
+    <string name="playerTwoNameInputEdit">Name of player 2</string>
+    <string name="playerThreeNameInputEdit">Name of player 3</string>
+    <string name="playerFourNameInputEdit">Name of player 4</string>
+
+    <string name="newTurn">It\'s %3s to play!</string>
+    <string name="winTitle">Victory!</string>
+    <string name="winText">One point is added to %1s\</string>
+    <string name="lossTitle">Loss!</string>
+    <string name="lossText">%2s picked a face card and is not getting any points this turn</string>
+
 </resources>

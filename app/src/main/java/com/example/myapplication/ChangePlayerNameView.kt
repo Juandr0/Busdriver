@@ -27,11 +27,8 @@ class ChangePlayerNameView : AppCompatActivity() {
         var playerFourNameInputEdit  : EditText = findViewById<EditText>(R.id.playerFourNameInputEdit)
 
         var startGameButton : Button = findViewById(R.id.startGameButton)
-        startGameButton.text = "Starta spelet"
 
         changePlayerNameView = findViewById(R.id.changePlayerNameView)
-        changePlayerNameView.text = "Ange namn på de som ska spela"
-
         getEditTextViews(numOfPlayers, playerTwoNameInputEdit, playerThreeNameInputEdit, playerFourNameInputEdit)
 
         startGameButton.setOnClickListener {
