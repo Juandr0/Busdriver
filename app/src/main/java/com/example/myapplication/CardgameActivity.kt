@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +20,7 @@ class Card (var name : String, var number : Int, var suite : String, var image: 
 
 class CardgameActivity : AppCompatActivity() {
 
+    var activePlayerIndex = 0
     var imageViewList = mutableListOf<ImageView>()
     var deckOfCards = mutableListOf<Card>()
     var cardsInPyramid = mutableListOf<Card>()
@@ -45,25 +47,26 @@ class CardgameActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         deckOfCards.shuffle()
-        initiateCardsOnBoard()
+        initiateCardsOnBoard() //Ta bort
         builder = AlertDialog.Builder(this)
+        startGame()
 
         // Skapa en loop som kör igenom spelet tills någon har 5pts.
-                startGame()
-
-
-
     }
 
 
 
     fun startGame(){
-        //Hårdkodat temporärt
-        for (player in playerList) {
-            if (player.score != 5) {
-                activateFirstRow(playerList[0])
-            }
+
+        if (activePlayerIndex == playerList.size) {
+            activePlayerIndex = 0
         }
+        if (playerList[activePlayerIndex].score != 5){
+            activateFirstRow()
+        } else {
+
+        }
+
     }
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
@@ -109,7 +112,10 @@ class CardgameActivity : AppCompatActivity() {
         "${player4.name}:  ${player4.score}".also { playerFourScore.text = it }
 
         var numOfPlayersAsInt = intent.getIntExtra("numOfPlayers", 0)
-        var index = 1
+
+
+        Log.d("!!!", numOfPlayersAsInt.toString())
+
 
         when (numOfPlayersAsInt) {
             1 -> {
@@ -131,8 +137,9 @@ class CardgameActivity : AppCompatActivity() {
                 playerList.add(player4)
             }
         }
-    }
 
+        Log.d("!!!", playerList.size.toString())
+    }
 
     fun amountOfPlayers() {
         val numOfPlayers = intent.getIntExtra("numOfPlayers", 0)
@@ -158,92 +165,90 @@ class CardgameActivity : AppCompatActivity() {
     }
 
 
-    fun activateFirstRow(player : Player) {
-        var currentPlayer = player
-        Toast.makeText(this,getString(R.string.newTurn, player.name),Toast.LENGTH_LONG).show()
+    fun activateFirstRow() {
+        Toast.makeText(this,getString(R.string.newTurn, playerList[activePlayerIndex].name),Toast.LENGTH_SHORT).show()
         var rowList = mutableListOf<ImageView>(imageViewList[0], imageViewList[1], imageViewList[2], imageViewList[3], imageViewList[4])
 
             imageViewList[0].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[0])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostRound()
 
             }
             imageViewList[1].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[1])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostRound()
             }
             imageViewList[2].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[2])
                 diableClickRow( rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostRound()
             }
             imageViewList[3].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[3])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostRound()
             }
             imageViewList[4].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[4])
                 diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
+                if (!cardsInPyramid[0].isFaceCard) activateSecondRow() else lostRound()
             }
     }
 
-    fun activateSecondRow(player : Player) {
-        var currentPlayer = player
+    fun activateSecondRow() {
+
         var rowList = mutableListOf<ImageView>(imageViewList[5], imageViewList[6], imageViewList[7], imageViewList[8])
 
         imageViewList[5].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[5])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer)else lostGame(currentPlayer)
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow()else lostRound()
 
         }
         imageViewList[6].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[6])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer) else lostGame(currentPlayer)
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow() else lostRound()
         }
         imageViewList[7].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[7])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer) else lostGame(currentPlayer)
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow() else lostRound()
         }
         imageViewList[8].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[8])
             diableClickRow(rowList)
-            if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer) else lostGame(currentPlayer)
+            if (!cardsInPyramid[1].isFaceCard) activateThirdRow() else lostRound()
 
         }
     }
 
-    fun activateThirdRow(player : Player) {
-        var currentPlayer = player
+    fun activateThirdRow() {
+
         var rowList = mutableListOf<ImageView>(imageViewList[9], imageViewList[10], imageViewList[11])
 
         imageViewList[9].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[9])
             diableClickRow(rowList)
-            if (!cardsInPyramid[2].isFaceCard) activateFourthRow(currentPlayer) else lostGame(currentPlayer)
+            if (!cardsInPyramid[2].isFaceCard) activateFourthRow() else lostRound()
 
         }
         imageViewList[10].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[10])
-            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow(currentPlayer)} else lostGame(currentPlayer)
+            if (!cardsInPyramid[2].isFaceCard){ activateFourthRow()} else lostRound()
 
         }
         imageViewList[11].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[11])
             diableClickRow( rowList)
-            activateFourthRow(currentPlayer)
-            if (!cardsInPyramid[2].isFaceCard) activateFourthRow(currentPlayer) else lostGame(currentPlayer)
+            activateFourthRow()
+            if (!cardsInPyramid[2].isFaceCard) activateFourthRow() else lostRound()
 
         }
     }
 
-    fun activateFourthRow(player : Player) {
-        var currentPlayer = player
+    fun activateFourthRow() {
+
         var rowList = mutableListOf<ImageView>(imageViewList[12], imageViewList[13])
 
         imageViewList[12].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[12])
             diableClickRow(rowList)
-            if (!cardsInPyramid[3].isFaceCard) activateFifthrow(currentPlayer) else lostGame(currentPlayer)
+            if (!cardsInPyramid[3].isFaceCard) activateFifthrow(playerList[activePlayerIndex]) else lostRound()
         }
         imageViewList[13].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[13])
             diableClickRow(rowList)
-            if (!cardsInPyramid[3].isFaceCard) activateFifthrow(currentPlayer) else lostGame(currentPlayer)
+            if (!cardsInPyramid[3].isFaceCard) activateFifthrow(playerList[activePlayerIndex]) else lostRound()
         }
-
     }
 
     fun activateFifthrow(player : Player) {
@@ -252,7 +257,7 @@ class CardgameActivity : AppCompatActivity() {
 
         imageViewList[14].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[14])
             diableClickRow(rowList)
-            if (!cardsInPyramid[4].isFaceCard) wonGame(currentPlayer) else lostGame(currentPlayer)
+            if (!cardsInPyramid[4].isFaceCard) wonRound() else lostRound()
         }
     }
 
@@ -261,26 +266,78 @@ class CardgameActivity : AppCompatActivity() {
     fun builderHelper(){
         builder.setCancelable(false)
         builder.setPositiveButton("OK"){dialogInterface, it ->
+            updateScore()
             resetPictures()
             cardsInPyramid.removeAll(cardsInPyramid)
-            onStart()
+            deckOfCards.removeAll(deckOfCards)
+            initiateDeckOfCards()
+            deckOfCards.shuffle()
+            initiateCardsOnBoard()
+
+            if (activePlayerIndex == playerList.size) activePlayerIndex = 0
+            activePlayerIndex++
+            startGame()
+
         }
         builder.show()
+        wonGameCheck()
+
+
     }
 
-    fun wonGame(player : Player) {
+    fun updateScore() {
+        playerList.size
 
+        when  (playerList.size) {
+            1 -> {
+                playerOneScore.text = "${playerList[0].name}: ${playerList[0].score}"
+            }
+            2 -> {
+                playerOneScore.text = "${playerList[0].name}: ${playerList[0].score}"
+                playerTwoScore.text = "${playerList[1].name}: ${playerList[1].score}"
+            }
+            3 -> {
+                playerOneScore.text = "${playerList[0].name}: ${playerList[0].score}"
+                playerTwoScore.text = "${playerList[1].name}: ${playerList[1].score}"
+                playerThreeScore.text = "${playerList[2].name}: ${playerList[2].score}"
+            }
+            4 -> {
+                playerOneScore.text = "${playerList[0].name}: ${playerList[0].score}"
+                playerTwoScore.text = "${playerList[1].name}: ${playerList[1].score}"
+                playerThreeScore.text = "${playerList[2].name}: ${playerList[2].score}"
+                playerFourScore.text = "${playerList[3].name}: ${playerList[3].score}"
+            }
+        }
+
+
+
+
+
+    }
+
+    fun wonGameCheck() {
+
+        if (playerList[activePlayerIndex].score == 5){
+            builder.setTitle(getString(R.string.gameWinnerTitle))
+            builder.setMessage(getString(R.string.gameWinnerText,  playerList[activePlayerIndex].name))
+            builder.setCancelable(false)
+            builder.show()
+        }
+
+    }
+
+    fun wonRound() {
         builder.setTitle(getString(R.string.winTitle))
-        builder.setMessage(getString(R.string.winText, player.name))
+        builder.setMessage(getString(R.string.winText, playerList[activePlayerIndex].name))
+        playerList[activePlayerIndex].score ++
         builderHelper()
-        player.score ++
 
-        playerOneScore.text = "${player.name}: ${player.score}"
     }
 
-    fun lostGame(player : Player) {
+    fun lostRound() {
+
         builder.setTitle(getString(R.string.lossTitle))
-        builder.setMessage(getString(R.string.lossText, player.name))
+        builder.setMessage(getString(R.string.lossText, playerList[activePlayerIndex].name))
         builder.setCancelable(false)
         builderHelper()
 
@@ -350,7 +407,6 @@ class CardgameActivity : AppCompatActivity() {
         imageViewList.add(fifthRowFirstCard)
 
     }
-
 
 
 

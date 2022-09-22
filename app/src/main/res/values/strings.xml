@@ -2,6 +2,17 @@
     <string name="app_name">My Application</string>
     <string name="fifthrowfirstcard">fifthRowFirstCard</string>
 
+    <string name="rulesTitleView">How to play the game</string>
+    <string name="rulesText">
+        -Five rows with cards are aranged into a pyramid
+        shaped setup with the cardbacks facing upwards, and the
+        player will pick one of the cards at the bottom row of the pyramid.
+        If the card is not a facecard
+
+
+
+    </string>
+
     <string name="titleView">The busdriver</string>
     <string name="startButton">Start the game</string>
     <string name="rulesButton">Rules</string>
@@ -24,5 +35,10 @@
     <string name="winText">One point is added to %1s\</string>
     <string name="lossTitle">Loss!</string>
     <string name="lossText">%2s picked a face card and is not getting any points this turn</string>
+
+    <string name="gameWinnerTitle">Winner winner chicken dinner!</string>
+    <string name="gameWinnerText">  %4s won the game by reaching 5 points first!
+
+    Thank you for playing!</string>
 
 </resources>
