@@ -1,9 +1,7 @@
 package com.example.myapplication
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -56,18 +54,13 @@ class CardgameActivity : AppCompatActivity() {
 
         for (player in playerList){
             if (player.score != 5) {
-                startGame(player)
+                playBusdriver(player)
             }
         }
 
 
     }
 
-
-
-    fun startGame(player : Player){
-        activateFirstRow(player)
-    }
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
     //de olika objekten av spelare. Dessa sparas i listan playerList som nås över hela klassen.
@@ -161,53 +154,67 @@ class CardgameActivity : AppCompatActivity() {
     }
 
 
-    fun activateFirstRow(player : Player) {
+
+
+    fun playBusdriver(player : Player){
+        var firstRow = activateFirstRow(player)
+
+
+    }
+
+
+    fun activateFirstRow(player : Player) : Boolean{
+        var failedRow = false
         var currentPlayer = player
         Toast.makeText(this,"${player.name}'s tur att spela!",Toast.LENGTH_LONG).show()
         var rowList = mutableListOf<ImageView>(imageViewList[0], imageViewList[1], imageViewList[2], imageViewList[3], imageViewList[4])
 
             imageViewList[0].setOnClickListener { changeBackgroundHelperMethod(imageViewList[0])
-                diableClickRow(rowList)
-                if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
+                disableClickRow(rowList)
+                if (!cardsInPyramid[0].isFaceCard) {
+                    activateSecondRow(currentPlayer)
+                } else lostGame(currentPlayer)
 
             }
             imageViewList[1].setOnClickListener { changeBackgroundHelperMethod(imageViewList[1])
-                diableClickRow(rowList)
+                disableClickRow(rowList)
                 if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
             }
             imageViewList[2].setOnClickListener { changeBackgroundHelperMethod(imageViewList[2])
-                diableClickRow( rowList)
+                disableClickRow( rowList)
                 if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
             }
             imageViewList[3].setOnClickListener { changeBackgroundHelperMethod(imageViewList[3])
-                diableClickRow(rowList)
+                disableClickRow(rowList)
                 if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
             }
             imageViewList[4].setOnClickListener { changeBackgroundHelperMethod(imageViewList[4])
-                diableClickRow(rowList)
+                disableClickRow(rowList)
                 if (!cardsInPyramid[0].isFaceCard) activateSecondRow(currentPlayer) else lostGame(currentPlayer)
             }
+    return failedRow
     }
+
 
     fun activateSecondRow(player : Player) {
         var currentPlayer = player
         var rowList = mutableListOf<ImageView>(imageViewList[5], imageViewList[6], imageViewList[7], imageViewList[8])
 
         imageViewList[5].setOnClickListener { changeBackgroundHelperMethod(imageViewList[5])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer)else lostGame(currentPlayer)
 
         }
         imageViewList[6].setOnClickListener { changeBackgroundHelperMethod(imageViewList[6])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer) else lostGame(currentPlayer)
         }
         imageViewList[7].setOnClickListener { changeBackgroundHelperMethod(imageViewList[7])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer) else lostGame(currentPlayer)
         }
         imageViewList[8].setOnClickListener { changeBackgroundHelperMethod(imageViewList[8])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[1].isFaceCard) activateThirdRow(currentPlayer) else lostGame(currentPlayer)
 
         }
@@ -218,7 +225,7 @@ class CardgameActivity : AppCompatActivity() {
         var rowList = mutableListOf<ImageView>(imageViewList[9], imageViewList[10], imageViewList[11])
 
         imageViewList[9].setOnClickListener { changeBackgroundHelperMethod(imageViewList[9])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[2].isFaceCard) activateFourthRow(currentPlayer) else lostGame(currentPlayer)
 
         }
@@ -227,7 +234,7 @@ class CardgameActivity : AppCompatActivity() {
 
         }
         imageViewList[11].setOnClickListener { changeBackgroundHelperMethod(imageViewList[11])
-            diableClickRow( rowList)
+            disableClickRow( rowList)
             activateFourthRow(currentPlayer)
             if (!cardsInPyramid[2].isFaceCard) activateFourthRow(currentPlayer) else lostGame(currentPlayer)
 
@@ -239,11 +246,11 @@ class CardgameActivity : AppCompatActivity() {
         var rowList = mutableListOf<ImageView>(imageViewList[12], imageViewList[13])
 
         imageViewList[12].setOnClickListener { changeBackgroundHelperMethod(imageViewList[12])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[3].isFaceCard) activateFifthrow(currentPlayer) else lostGame(currentPlayer)
         }
         imageViewList[13].setOnClickListener { changeBackgroundHelperMethod(imageViewList[13])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[3].isFaceCard) activateFifthrow(currentPlayer) else lostGame(currentPlayer)
         }
 
@@ -254,7 +261,7 @@ class CardgameActivity : AppCompatActivity() {
         var rowList = mutableListOf<ImageView>(imageViewList[14])
 
         imageViewList[14].setOnClickListener { changeBackgroundHelperMethod(imageViewList[14])
-            diableClickRow(rowList)
+            disableClickRow(rowList)
             if (!cardsInPyramid[4].isFaceCard) wonGame(currentPlayer) else lostGame(currentPlayer)
         }
     }
@@ -297,7 +304,7 @@ class CardgameActivity : AppCompatActivity() {
     }
 
 
-    fun diableClickRow(imageViewList: List<ImageView>){
+    fun disableClickRow(imageViewList: List<ImageView>){
            for (view in imageViewList){
                view.isClickable = false
            }
