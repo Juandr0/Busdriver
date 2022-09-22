@@ -158,8 +158,6 @@ class CardgameActivity : AppCompatActivity() {
 
     fun playBusdriver(player : Player){
         var firstRow = activateFirstRow(player)
-
-
     }
 
 
