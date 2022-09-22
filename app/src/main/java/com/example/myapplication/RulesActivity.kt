@@ -17,10 +17,8 @@ class RulesActivity : AppCompatActivity() {
         setContentView(R.layout.rules_activity)
 
         rulesTitleView = findViewById(R.id.rulesTitleView)
-        rulesTitleView.text = "Hur spelet går till"
-
         rulesText = findViewById(R.id.rulesText)
-        rulesText.text =
+            /*
                 "-Fem rader med kort läggs ut i en pyramidformad " +
                 "uppställning med kortets baksida uppåt, och spelaren " +
                 "ska därefter välja ett kort i den nedersta raden av " +
@@ -32,10 +30,10 @@ class RulesActivity : AppCompatActivity() {
 
                 "-Om spelaren tar sig förbi det översta kortet i " +
                 "pyramiden utan att stöta på ett klätt kort belönas " +
-                "denne med ett poäng. Först till 10 poäng vinner " +
+                "denne med ett poäng. Först till 5 poäng vinner " +
                 "matchen ifall det är flera spelare.\n\n" +
 
-                "-En spelare spelar åt gången"
+                "-En spelare spelar åt gången"*/
 
         backButton = findViewById(R.id.backButton)
         backButton.text = "Tillbaka till huvudmenyn"

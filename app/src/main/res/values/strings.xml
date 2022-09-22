@@ -4,10 +4,18 @@
 
     <string name="rulesTitleView">How to play the game</string>
     <string name="rulesText">
-        -Five rows with cards are aranged into a pyramid
+        -Five rows of cards are put into a pyramid
         shaped setup with the cardbacks facing upwards, and the
         player will pick one of the cards at the bottom row of the pyramid.
-        If the card is not a facecard
+        If the card is not a face card (jack, queen or king) the game will go
+        on and the player will pick another card at the row above, and the game
+        will continue in this fashion until the player reach the top of the pyramid
+        or picks a face card.
+
+        \n\n-When a player gets to the top of the pyramid they are awarded with one point.
+
+        \n\n-The player who get five points first wins the game.
+
 
 
 
@@ -37,8 +45,6 @@
     <string name="lossText">%2s picked a face card and is not getting any points this turn</string>
 
     <string name="gameWinnerTitle">Winner winner chicken dinner!</string>
-    <string name="gameWinnerText">  %4s won the game by reaching 5 points first!
-
-    Thank you for playing!</string>
+    <string name="gameWinnerText">  %4s won the game by reaching 5 points! \n\nThank you for playing!</string>
 
 </resources>
