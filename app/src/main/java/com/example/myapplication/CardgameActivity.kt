@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,6 +31,7 @@ class CardgameActivity : AppCompatActivity() {
     lateinit var playerTwoScore : TextView
     lateinit var playerThreeScore : TextView
     lateinit var playerFourScore : TextView
+    lateinit var builder : AlertDialog.Builder
 
 
 
@@ -48,6 +50,9 @@ class CardgameActivity : AppCompatActivity() {
         super.onStart()
         deckOfCards.shuffle()
         initiateCardsOnBoard()
+        builder = AlertDialog.Builder(this)
+        // Här är jag! Försöker att skapa en loop som kör igenom spelet tills någon har 10pts.
+        // Ska också fixa så att spelet resetas efter varje omgång.
         for (player in playerList){
         startGame(player)
             }
@@ -249,25 +254,34 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
+    //Tar flyttar två instanser av samma kod till en funktion, används för att öppna en messagebox som bara går att stänga
+    //när användaren klickar på ok. På klick resetas även korten och onStart körs.
+    fun builderHelper(){
+        builder.setCancelable(false)
+        builder.setPositiveButton("OK"){dialogInterface, it ->
+            resetPictures()
+            cardsInPyramid.removeAll(cardsInPyramid)
+            onStart()
+        }
+        builder.show()
+    }
 
     fun wonGame(player : Player) {
 
-        var message =AlertDialog.Builder(this)
-
-        message.setTitle("Vinst!")
-        message.setMessage("${player.name} tar hem 1 poäng!")
+        builder.setTitle("Vinst!")
+        builder.setMessage("${player.name} tar hem 1 poäng!")
+        builderHelper()
         player.score ++
-        message.show()
+
         playerOneScore.text = "${player.score}"
     }
 
     fun lostGame(player : Player) {
-        var message =AlertDialog.Builder(this)
+        builder.setTitle("Förlust!")
+        builder.setMessage("${player.name} hamnade på ett klätt kort och får därför inga poäng denna omgången!")
+        builder.setCancelable(false)
+        builderHelper()
 
-        message.setTitle("Förlust!")
-        message.setMessage("${player.name} hamnade på ett klätt kort och får därför inga poäng denna omgången!")
-        message.show()
-        //Toast.makeText(this,"Player hamnade på ett klätt kort och får därför inga poäng denna omgången!",Toast.LENGTH_LONG).show()
 
     }
 
