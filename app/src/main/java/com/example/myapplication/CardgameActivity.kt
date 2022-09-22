@@ -52,15 +52,20 @@ class CardgameActivity : AppCompatActivity() {
         initiateCardsOnBoard()
         builder = AlertDialog.Builder(this)
         // Här är jag! Försöker att skapa en loop som kör igenom spelet tills någon har 10pts.
-        // Ska också fixa så att spelet resetas efter varje omgång.
+
+
         for (player in playerList){
-        startGame(player)
+            if (player.score != 5) {
+                startGame(player)
             }
         }
 
 
+    }
+
+
+
     fun startGame(player : Player){
-        for (players in playerList)
         activateFirstRow(player)
     }
 
@@ -273,7 +278,7 @@ class CardgameActivity : AppCompatActivity() {
         builderHelper()
         player.score ++
 
-        playerOneScore.text = "${player.score}"
+        playerOneScore.text = "${player.name}: ${player.score}"
     }
 
     fun lostGame(player : Player) {
