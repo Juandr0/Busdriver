@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,12 +28,11 @@ class CardgameActivity : AppCompatActivity() {
     var playerList = mutableListOf<Player>()
 
 
-    lateinit var playerOneScore : TextView
-    lateinit var playerTwoScore : TextView
-    lateinit var playerThreeScore : TextView
-    lateinit var playerFourScore : TextView
-    lateinit var builder : AlertDialog.Builder
-
+    lateinit var playerOneScore: TextView
+    lateinit var playerTwoScore: TextView
+    lateinit var playerThreeScore: TextView
+    lateinit var playerFourScore: TextView
+    lateinit var builder: AlertDialog.Builder
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,24 +50,19 @@ class CardgameActivity : AppCompatActivity() {
         initiateCardsOnBoard() //Ta bort
         builder = AlertDialog.Builder(this)
         startGame()
-
-        // Skapa en loop som kör igenom spelet tills någon har 5pts.
     }
 
 
+    // Kollar så att activeplayerindex inte är för stor för listan, att spelaren inte har 5 poäng, och sen aktiveras första raden kort.
+    // Har spelaren 5 poäng avslutas spelet och användaren hamnar på startmenyn.
 
-    fun startGame(){
+    fun startGame() {
 
         if (activePlayerIndex == playerList.size) {
             activePlayerIndex = 0
         }
-        if (playerList[activePlayerIndex].score != 5){
-            activateFirstRow()
-        } else {
-
-        }
-
-    }
+        activateFirstRow()
+}
 
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
     //de olika objekten av spelare. Dessa sparas i listan playerList som nås över hela klassen.
@@ -113,10 +108,6 @@ class CardgameActivity : AppCompatActivity() {
 
         var numOfPlayersAsInt = intent.getIntExtra("numOfPlayers", 0)
 
-
-        Log.d("!!!", numOfPlayersAsInt.toString())
-
-
         when (numOfPlayersAsInt) {
             1 -> {
                 playerList.add(player1)
@@ -137,10 +128,10 @@ class CardgameActivity : AppCompatActivity() {
                 playerList.add(player4)
             }
         }
-
-        Log.d("!!!", playerList.size.toString())
     }
 
+    // Tar intent från antal-spelare skärmen och gömmer de player-score textviews som inte ska spela.
+    // Exempelvis om det är 2 spelare som ska spela så göms player 3 & 4
     fun amountOfPlayers() {
         val numOfPlayers = intent.getIntExtra("numOfPlayers", 0)
 
@@ -157,13 +148,15 @@ class CardgameActivity : AppCompatActivity() {
                 }
                 3 -> {
                     playerFourScore.visibility = View.INVISIBLE
-
                 }
-        }
-
+            }
         }
     }
 
+    // Skriver ut en text längst ned på skärmen som berättar vilken spelare ska spela (den aktiva spelaren i playerList)
+    // rowList tar emot de fem första korten i kortlistan, som är hårdkodade att vara de första fem korten i den nedersta raden av pyramiden.
+    // Aktiverar en clicklistener på samtliga kort, och på klick så körs metoden disableClickRow som innebär att alla click-listeners
+    // på den raden stängs av, så att man bara kan välja ett kort per rad.
 
     fun activateFirstRow() {
         Toast.makeText(this,getString(R.string.newTurn, playerList[activePlayerIndex].name),Toast.LENGTH_SHORT).show()
@@ -192,6 +185,10 @@ class CardgameActivity : AppCompatActivity() {
             }
     }
 
+
+    // Samma som activateFirstRow minus att skriva ut vem som spelar. Detta gäller för samtliga activate..Row
+    // Denna kodupprepning blir det första som ändras i 2.0 versionen.
+
     fun activateSecondRow() {
 
         var rowList = mutableListOf<ImageView>(imageViewList[5], imageViewList[6], imageViewList[7], imageViewList[8])
@@ -216,6 +213,10 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
+
+    // Samma som activateFirstRow minus att skriva ut vem som spelar. Detta gäller för samtliga activate..Row
+    // Denna kodupprepning blir det första som ändras i 2.0 versionen.
+
     fun activateThirdRow() {
 
         var rowList = mutableListOf<ImageView>(imageViewList[9], imageViewList[10], imageViewList[11])
@@ -237,6 +238,10 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
+
+    // Samma som activateFirstRow minus att skriva ut vem som spelar. Detta gäller för samtliga activate..Row
+    // Denna kodupprepning blir det första som ändras i 2.0 versionen.
+
     fun activateFourthRow() {
 
         var rowList = mutableListOf<ImageView>(imageViewList[12], imageViewList[13])
@@ -251,6 +256,11 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
+    // Samma som activateFirstRow minus att skriva ut vem som spelar. Detta gäller för samtliga activate..Row
+    // Kör wonRound eller lostRound beroende på om sista kortet i pyramiden är ett klätt kort.
+    // Denna kodupprepning blir det första som ändras i 2.0 versionen.
+
+
     fun activateFifthrow(player : Player) {
         var currentPlayer = player
         var rowList = mutableListOf<ImageView>(imageViewList[14])
@@ -261,36 +271,39 @@ class CardgameActivity : AppCompatActivity() {
         }
     }
 
-    //Tar flyttar två instanser av samma kod till en funktion, används för att öppna en messagebox som bara går att stänga
-    //när användaren klickar på ok. På klick resetas även korten och onStart körs.
+    //Flyttar två instanser av samma kod till en funktion, används för att öppna en messagebox som bara går att stänga
+    //när användaren klickar på ok. På klick resetas korten i kortleken, i pyramiden,-
+    // nya kort initieras & blandas och därefter knyts korten till de på bordet
+    // If-sats som kollar att playerindex inte når längre än listans längd, och om -
+    // den är på sista spelaren i listan går turen tillbaka till första spelaren.
+
+    // Slutligen görs en check om spelet är slut genom en funktion som kollar den aktiva spelarens poäng.
+    // Har spelaren 5 poäng avslutas spelet med en vinst-skärm annars körs ->
+
+    // Kollar så att activeplayerindex inte är för stor för listan, att spelaren inte har 5 poäng, och sen aktiveras första raden kort.
+    // Har spelaren 5 poäng avslutas spelet och användaren hamnar på startmenyn.
+
     fun builderHelper(){
         builder.setCancelable(false)
         builder.setPositiveButton("OK"){dialogInterface, it ->
-            updateScore()
             resetPictures()
             cardsInPyramid.removeAll(cardsInPyramid)
             deckOfCards.removeAll(deckOfCards)
             initiateDeckOfCards()
             deckOfCards.shuffle()
             initiateCardsOnBoard()
-
-            if (activePlayerIndex == playerList.size) activePlayerIndex = 0
-            activePlayerIndex++
-            startGame()
-
+            if (playerList[activePlayerIndex].score != 5){
+                activePlayerIndex++
+                startGame()
+            }
         }
         var isGameOver = wonGameCheck()
         if (!isGameOver) {
             builder.show()
-        } else {
-
         }
-
-
-
-
     }
 
+    //Uppdaterar texten i poängtavlan
     fun updateScore() {
         playerList.size
 
@@ -318,9 +331,10 @@ class CardgameActivity : AppCompatActivity() {
 
 
 
-
     }
 
+    //Kollar om en spelare har fem poäng och skickar ett vinst-meddelande vid true.
+    //Returnerar en bool som används för att spelet ska köra på med ett annat meddelande-
     fun wonGameCheck() : Boolean{
 
         if (playerList[activePlayerIndex].score == 5){
@@ -328,44 +342,54 @@ class CardgameActivity : AppCompatActivity() {
             builder.setTitle(getString(R.string.gameWinnerTitle))
             builder.setMessage(getString(R.string.gameWinnerText,  playerList[activePlayerIndex].name))
             builder.setCancelable(false)
+
+            builder.setPositiveButton("OK"){dialogInterface, it ->
+               mainMenu()
+            }
             builder.show()
-            return true
         }
         return false
     }
 
+    //tar bort alla activities och skickar tillbaka användaren till huvudmenyn
+    fun mainMenu(){
+        intent = Intent(this, MainActivity::class.java)
+        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP )
+        startActivity(intent)
+    }
+
+    //Vinstmeddelande när spelaren klarar pyramiden, samt uppdaterar scoreboard
     fun wonRound() {
         builder.setTitle(getString(R.string.winTitle))
         builder.setMessage(getString(R.string.winText, playerList[activePlayerIndex].name))
         playerList[activePlayerIndex].score ++
+        updateScore()
         builderHelper()
-
     }
 
+    //Förlustmeddeladne när spelaren inte klarar pyramiden.
     fun lostRound() {
-
         builder.setTitle(getString(R.string.lossTitle))
         builder.setMessage(getString(R.string.lossText, playerList[activePlayerIndex].name))
         builder.setCancelable(false)
         builderHelper()
-
-
     }
 
+    //Byter tillbaka bilden på alla kort till baksidan av ett kort.
     fun resetPictures() {
         for (image in imageViewList) {
             image.setImageResource(R.drawable.cardback)
         }
     }
 
-
+    //Stänger av klickbarhet för klicklisteners
     fun diableClickRow(imageViewList: List<ImageView>){
            for (view in imageViewList){
                view.isClickable = false
            }
     }
 
-
+    //Initierar de imageviews som avnänds för korten i spelet.
     fun initiateCardsOnBoard() {
 
         //Första raden nedifrån
@@ -416,14 +440,17 @@ class CardgameActivity : AppCompatActivity() {
 
     }
 
-
-
+    //Hjälpmetod som vid klick på ett kort byter bilden till samma som det översta kortet i kortleken.
+    //Därefter läggs kortet in i listan cardsInPyramid som håller koll på korten i pyramiden,
+    //samt tar bort det översta kortet i kortleken från kortleken.
     fun changeCardBackgroundHelperMethod(imageView: ImageView){
         imageView.setImageResource(deckOfCards[0].image)
         cardsInPyramid.add(deckOfCards[0])
         deckOfCards.removeAt(0)
     }
 
+
+    //Lägger till alla kort i en kortlista med namn och bilder, av klassen "Card"
     fun initiateDeckOfCards () {
 
         deckOfCards.add(Card("ace_of_spades",  1, "spades", R.drawable.ace_of_spades))

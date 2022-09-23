@@ -46,6 +46,6 @@
     <string name="lossText">%2s picked a face card and is not getting any points this turn</string>
 
     <string name="gameWinnerTitle">Winner winner chicken dinner!</string>
-    <string name="gameWinnerText">  %4s won the game by reaching 5 points! \n\nThank you for playing!</string>
+    <string name="gameWinnerText">%4s won the game by reaching 5 points! \n\nThank you for playing!\n\nPress \"OK\" to go back to the main menu</string>
 
 </resources>
