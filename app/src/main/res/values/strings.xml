@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">The Busdriver</string>
     <string name="fifthrowfirstcard">fifthRowFirstCard</string>
 
     <string name="rulesTitleView">How to play the game</string>
@@ -26,13 +26,13 @@
     <string name="rulesButton">Rules</string>
     <string name="backButton">Main menu</string>
 
-    <string name="amountOfPlayersView">How many will play?</string>
+    <string name="amountOfPlayersView">How many players?</string>
     <string name="onePlayer">One player</string>
     <string name="twoPlayers">two players</string>
     <string name="threePlayers">three players</string>
     <string name="fourPlayers">four players</string>
 
-    <string name="changePlayerNameView">Please enter player names</string>
+    <string name="changePlayerNameView">Enter player names</string>
     <string name="startGameButton">Play</string>
     <string name="playerOneNameInputEdit">Name of player 1</string>
     <string name="playerTwoNameInputEdit">Name of player 2</string>

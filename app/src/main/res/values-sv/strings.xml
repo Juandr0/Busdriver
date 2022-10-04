@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Busschauffören</string>
+    <string name="fifthrowfirstcard">fifthRowFirstCard</string>
+
+    <string name="rulesTitleView">Regler</string>
+    <string name="rulesText">
+        -Fem rader med kort kommer att läggas ut i en pyramid-liknande formation
+	med kortens baksida uppåt. Spelaren ska först välja ett kort i den nedersta
+	raden av pyramiden, och om kortet inte är ett klätt kort (knäkt, dam och kung) så får spelaren forstsätta
+	att välja ett kort på nästa rad ovanför. Såhär fortsätter spelet tills dess att
+	spelaren hamnar på ett klätt kort eller att denne når toppen av pyramiden.
+
+        \n\n-Lyckas spelaren ta sig till toppen av pyramiden utan att stöta på ett klätt kort belönas denne med ett poäng.
+
+        \n\n-Spelaren som först når fem poäng har vunnit omgången.
+
+
+
+
+
+    </string>
+
+    <string name="titleView">Busschauffören</string>
+    <string name="startButton">Starta spelet</string>
+    <string name="rulesButton">Regler</string>
+    <string name="backButton">Tillbaka till huvudmenyn</string>
+
+    <string name="amountOfPlayersView">Hur många ska spela?</string>
+    <string name="onePlayer">En spelare</string>
+    <string name="twoPlayers">Två spelare</string>
+    <string name="threePlayers">Tre spelare</string>
+    <string name="fourPlayers">Fyra spelare</string>
+
+    <string name="changePlayerNameView">Ange spelarnas namn:</string>
+    <string name="startGameButton">Play</string>
+    <string name="playerOneNameInputEdit">Spelare 1 namn</string>
+    <string name="playerTwoNameInputEdit">Spelare 2 namn</string>
+    <string name="playerThreeNameInputEdit">Spelare 3 namn</string>
+    <string name="playerFourNameInputEdit">Spelare 4 namn</string>
+
+    <string name="newTurn">Nu är det %3s\'s tur att spela!</string>
+    <string name="winTitle">Vinst!</string>
+    <string name="winText">%1s inkasserar ett poäng!</string>
+    <string name="lossTitle">Förlust!</string>
+    <string name="lossText">%2s valde ett klätt kort och får därför inga poäng denna omgången</string>
+
+    <string name="gameWinnerTitle">Vi har en vinnare!</string>
+    <string name="gameWinnerText">%4s vann genom att nå fem poäng först! \n\nTack för att ni spelare!\n\nKlicka på \"OK\" för att gå tillbaka till huvudmenyn</string>
+
+</resources>
