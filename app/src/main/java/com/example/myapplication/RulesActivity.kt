@@ -14,7 +14,7 @@ class RulesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.rules_activity)
+        setContentView(R.layout.activity_rules)
 
         rulesTitleView = findViewById(R.id.rulesTitleView)
         rulesText = findViewById(R.id.rulesText)

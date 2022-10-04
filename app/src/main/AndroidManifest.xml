@@ -23,7 +23,7 @@
             android:name=".CardgameActivity"
             android:exported="false" />
         <activity
-            android:name="ChangePlayerNameView"
+            android:name="ChangePlayerNameActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

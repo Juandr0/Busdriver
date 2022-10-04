@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
@@ -18,7 +17,7 @@ class NumOfPlayersActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.numofplayers_activity)
+        setContentView(R.layout.activity_numofplayers)
         initiateView()
         activateClickListeners()
     }
@@ -30,25 +29,25 @@ class NumOfPlayersActivity : AppCompatActivity() {
 
     fun activateClickListeners(){
         onePlayer.setOnClickListener {
-            intent = Intent(this, ChangePlayerNameView::class.java)
+            intent = Intent(this, ChangePlayerNameActivity::class.java)
             intent.putExtra("numOfPlayers", 1)
             startActivity(intent)
         }
 
         twoPlayers.setOnClickListener {
-            intent = Intent(this, ChangePlayerNameView::class.java)
+            intent = Intent(this, ChangePlayerNameActivity::class.java)
             intent.putExtra("numOfPlayers", 2)
             startActivity(intent)
         }
 
         threePlayers.setOnClickListener {
-            intent = Intent(this, ChangePlayerNameView::class.java)
+            intent = Intent(this, ChangePlayerNameActivity::class.java)
             intent.putExtra("numOfPlayers", 3)
             startActivity(intent)
         }
 
         fourPlayers.setOnClickListener {
-            intent = Intent(this, ChangePlayerNameView::class.java)
+            intent = Intent(this, ChangePlayerNameActivity::class.java)
             intent.putExtra("numOfPlayers", 4)
             startActivity(intent)
         }
