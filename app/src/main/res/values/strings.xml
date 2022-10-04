@@ -32,6 +32,12 @@
     <string name="threePlayers">three players</string>
     <string name="fourPlayers">four players</string>
 
+    <string name="playerOneEmptyName">Player 1</string>
+    <string name="playerTwoEmptyName">Player 2</string>
+    <string name="playerThreeEmptyName">Player 3</string>
+    <string name="playerFourEmptyName">Player 4</string>
+
+
     <string name="changePlayerNameView">Enter player names</string>
     <string name="startGameButton">Play</string>
     <string name="playerOneNameInputEdit">Name of player 1</string>

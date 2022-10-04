@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Alex/AndroidStudioProjects/MyApplication3/app/src/main/res/layout/activity_cardgame.xml" value="0.29572649572649573" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/MyApplication3/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/MyApplication3/app/src/main/res/layout/cardgame_activity.xml" value="0.5" />
         <entry key="..\:/Users/Alex/AndroidStudioProjects/MyApplication3/app/src/main/res/layout/changeplayername_activity.xml" value="0.25854700854700857" />
@@ -21,7 +22,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.21965579710144928" />
+        <option name="scale" value="0.29572649572649573" />
       </ProjectState>
     </option>
   </component>

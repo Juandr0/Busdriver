@@ -5,20 +5,24 @@
 
     <string name="rulesTitleView">Regler</string>
     <string name="rulesText">
-        -Fem rader med kort kommer att läggas ut i en pyramid-liknande formation
-	med kortens baksida uppåt. Spelaren ska först välja ett kort i den nedersta
-	raden av pyramiden, och om kortet inte är ett klätt kort (knäkt, dam och kung) så får spelaren forstsätta
-	att välja ett kort på nästa rad ovanför. Såhär fortsätter spelet tills dess att
-	spelaren hamnar på ett klätt kort eller att denne når toppen av pyramiden.
 
-        \n\n-Lyckas spelaren ta sig till toppen av pyramiden utan att stöta på ett klätt kort belönas denne med ett poäng.
+                -Fem rader med kort läggs ut i en pyramidformad
+                uppställning med kortets baksida uppåt, och spelaren
+                ska därefter välja ett kort i den nedersta raden av
+                pyramiden. Om kortet inte är ett klätt kort (Knekt,
+                dam eller kung) väljer spelaren ett nytt kort på raden
+                ovanför, och fortsätter därefter tills dess att spelaren
+                stöter på ett klätt kort eller har tagit sig till toppen av
+                pyramiden.\n\n
 
-        \n\n-Spelaren som först når fem poäng har vunnit omgången.
+                -Om spelaren tar sig förbi det översta kortet i
+                pyramiden utan att stöta på ett klätt kort belönas
+                denne med ett poäng. Först till 5 poäng vinner
+                matchen ifall det är flera spelare.\n\n
 
+                -En person spelar åt gången\n\n
 
-
-
-
+                -Spelaren som först når fem poäng har vunnit omgången.
     </string>
 
     <string name="titleView">Busschauffören</string>
@@ -31,6 +35,11 @@
     <string name="twoPlayers">Två spelare</string>
     <string name="threePlayers">Tre spelare</string>
     <string name="fourPlayers">Fyra spelare</string>
+
+    <string name="playerOneEmptyName">Spelare 1</string>
+    <string name="playerTwoEmptyName">Spelare 2</string>
+    <string name="playerThreeEmptyName">Spelare 3</string>
+    <string name="playerFourEmptyName">Spelare 4</string>
 
     <string name="changePlayerNameView">Ange spelarnas namn:</string>
     <string name="startGameButton">Play</string>

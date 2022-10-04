@@ -73,16 +73,16 @@ class CardgameActivity : AppCompatActivity() {
         var player4Name = intent.getStringExtra("player4").toString()
 
         if (player1Name == ""){
-            player1Name = "Player 1"
+            player1Name = getString(R.string.playerOneEmptyName)
         }
         if (player2Name == ""){
-            player2Name = "Player 2"
+            player2Name = getString(R.string.playerTwoEmptyName)
         }
         if (player3Name == ""){
-            player3Name = "Player 3"
+            player3Name = getString(R.string.playerThreeEmptyName)
         }
         if (player4Name == ""){
-            player4Name = "Player 4"
+            player4Name = getString(R.string.playerFourEmptyName)
         }
 
 
