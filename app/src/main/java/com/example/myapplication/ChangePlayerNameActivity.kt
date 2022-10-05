@@ -10,7 +10,7 @@ import android.widget.TextView
 
 class ChangePlayerNameActivity : AppCompatActivity() {
 
-    lateinit var changePlayerNameView : TextView
+    private lateinit var changePlayerNameView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,29 +19,44 @@ class ChangePlayerNameActivity : AppCompatActivity() {
 
         val numOfPlayers = getAmountOfPlayers()
 
-        var playerOneNameInputEdit   : EditText = findViewById<EditText>(R.id.playerOneNameInputEdit)
-        var playerTwoNameInputEdit   : EditText = findViewById<EditText>(R.id.playerTwoNameInputEdit)
-        var playerThreeNameInputEdit : EditText = findViewById<EditText>(R.id.playerThreeNameInputEdit)
-        var playerFourNameInputEdit  : EditText = findViewById<EditText>(R.id.playerFourNameInputEdit)
+        val playerOneNameInputEdit: EditText = findViewById(R.id.playerOneNameInputEdit)
+        val playerTwoNameInputEdit: EditText = findViewById(R.id.playerTwoNameInputEdit)
+        val playerThreeNameInputEdit: EditText = findViewById(R.id.playerThreeNameInputEdit)
+        val playerFourNameInputEdit: EditText = findViewById(R.id.playerFourNameInputEdit)
 
-        var startGameButton : Button = findViewById(R.id.startGameButton)
+        val startGameButton: Button = findViewById(R.id.startGameButton)
 
         changePlayerNameView = findViewById(R.id.changePlayerNameView)
-        getEditTextViews(numOfPlayers, playerTwoNameInputEdit, playerThreeNameInputEdit, playerFourNameInputEdit)
+        getEditTextViews(
+            numOfPlayers,
+            playerTwoNameInputEdit,
+            playerThreeNameInputEdit,
+            playerFourNameInputEdit
+        )
 
         startGameButton.setOnClickListener {
-            startGame(playerOneNameInputEdit,playerTwoNameInputEdit, playerThreeNameInputEdit, playerFourNameInputEdit)
+            startGame(
+                playerOneNameInputEdit,
+                playerTwoNameInputEdit,
+                playerThreeNameInputEdit,
+                playerFourNameInputEdit
+            )
         }
     }
 
     //Default värdepå edittext om inget anges
 
 
-    fun getAmountOfPlayers() : Int{
+    private fun getAmountOfPlayers(): Int {
         return intent.getIntExtra("numOfPlayers", 1)
     }
 
-    fun getEditTextViews(numOfPlayersAsInt : Int, playerTwoNameInputEdit  : EditText, playerThreeNameInputEdit : EditText, playerFourNameInputEdit : EditText) {
+    private fun getEditTextViews(
+        numOfPlayersAsInt: Int,
+        playerTwoNameInputEdit: EditText,
+        playerThreeNameInputEdit: EditText,
+        playerFourNameInputEdit: EditText
+    ) {
         when (numOfPlayersAsInt) {
             1 -> {
                 playerTwoNameInputEdit.visibility = View.INVISIBLE
@@ -60,7 +75,12 @@ class ChangePlayerNameActivity : AppCompatActivity() {
         }
     }
 
-    fun startGame(playerOneNameInputEdit : EditText, playerTwoNameInputEdit : EditText, playerThreeNameInputEdit : EditText, playerFourNameInputEdit : EditText, ) {
+    private fun startGame(
+        playerOneNameInputEdit: EditText,
+        playerTwoNameInputEdit: EditText,
+        playerThreeNameInputEdit: EditText,
+        playerFourNameInputEdit: EditText
+    ) {
         val oldIntent = intent.getIntExtra("numOfPlayers", 1)
         intent = Intent(this, CardgameActivity::class.java)
         val playerOneName = playerOneNameInputEdit.text.toString()

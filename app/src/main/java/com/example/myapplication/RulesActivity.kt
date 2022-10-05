@@ -7,9 +7,9 @@ import android.widget.TextView
 
 class RulesActivity : AppCompatActivity() {
 
-    lateinit var rulesTitleView : TextView
-    lateinit var backButton : Button
-    lateinit var rulesText : TextView
+    private lateinit var rulesTitleView: TextView
+    private lateinit var backButton: Button
+    private lateinit var rulesText: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
