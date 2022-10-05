@@ -8,11 +8,11 @@ import android.widget.TextView
 
 class NumOfPlayersActivity : AppCompatActivity() {
 
-    lateinit var amountOfPlayers : TextView
-    lateinit var onePlayer : Button
-    lateinit var twoPlayers : Button
-    lateinit var threePlayers : Button
-    lateinit var fourPlayers : Button
+    private lateinit var amountOfPlayers: TextView
+    private lateinit var onePlayer: Button
+    private lateinit var twoPlayers: Button
+    private lateinit var threePlayers: Button
+    private lateinit var fourPlayers: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class NumOfPlayersActivity : AppCompatActivity() {
     //värdet på "numOfPlayers" som kan vara 1-4 beroende på vilken knapp användaren klickade på.
     //Detta används i CardgameActivity för att bestämma hur många spelare
 
-    fun activateClickListeners(){
+    private fun activateClickListeners() {
         onePlayer.setOnClickListener {
             intent = Intent(this, ChangePlayerNameActivity::class.java)
             intent.putExtra("numOfPlayers", 1)
@@ -54,7 +54,7 @@ class NumOfPlayersActivity : AppCompatActivity() {
     }
 
     //Initierar och sätter relevant text på textview och knapparna för hur många som ska spela
-    fun initiateView() {
+    private fun initiateView() {
 
         amountOfPlayers = findViewById(R.id.amountOfPlayersView)
 
