@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,29 +10,26 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
-class Player (var name : String, var score : Int){
-}
+class Player (var name : String, var score : Int)
 
-
-class Card (var name : String, var number : Int, var suite : String, var image: Int, var isFaceCard : Boolean = false) {
-}
-
+//Name, number & suite är inlagda för en eventuell utbyggnad i framtiden, men används ej i denna app.
+class Card (var name : String, var number : Int, var suite : String, var image: Int, var isFaceCard : Boolean = false)
 
 
 class CardgameActivity : AppCompatActivity() {
 
-    var activePlayerIndex = 0
-    var imageViewList = mutableListOf<ImageView>()
-    var deckOfCards = mutableListOf<Card>()
-    var cardsInPyramid = mutableListOf<Card>()
-    var playerList = mutableListOf<Player>()
+    private var activePlayerIndex = 0
+    private var imageViewList = mutableListOf<ImageView>()
+    private var deckOfCards = mutableListOf<Card>()
+    private var cardsInPyramid = mutableListOf<Card>()
+    private var playerList = mutableListOf<Player>()
 
 
-    lateinit var playerOneScore: TextView
-    lateinit var playerTwoScore: TextView
-    lateinit var playerThreeScore: TextView
-    lateinit var playerFourScore: TextView
-    lateinit var builder: AlertDialog.Builder
+    private lateinit var playerOneScore: TextView
+    private lateinit var playerTwoScore: TextView
+    private lateinit var playerThreeScore: TextView
+    private lateinit var playerFourScore: TextView
+    private lateinit var builder: AlertDialog.Builder
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +53,7 @@ class CardgameActivity : AppCompatActivity() {
     // Kollar så att activeplayerindex inte är för stor för listan, att spelaren inte har 5 poäng, och sen aktiveras första raden kort.
     // Har spelaren 5 poäng avslutas spelet och användaren hamnar på startmenyn.
 
-    fun startGame() {
+    private fun startGame() {
 
         if (activePlayerIndex == playerList.size) {
             activePlayerIndex = 0
@@ -66,7 +64,7 @@ class CardgameActivity : AppCompatActivity() {
     //Initierar de textviews som används för att visa poängställningen och knyter dem till
     //de olika objekten av spelare. Dessa sparas i listan playerList som nås över hela klassen.
 
-    fun initiatePlayerScoreViews() {
+    private fun initiatePlayerScoreViews() {
         var player1Name = intent.getStringExtra("player1").toString()
         var player2Name = intent.getStringExtra("player2").toString()
         var player3Name = intent.getStringExtra("player3").toString()
@@ -86,28 +84,26 @@ class CardgameActivity : AppCompatActivity() {
         }
 
 
-        var player1 = Player(player1Name , 0)
+        val player1 = Player(player1Name , 0)
         playerOneScore = findViewById(R.id.counterOne)
         "${player1.name}: ${player1.score}".also { playerOneScore.text = it }
 
 
-        var player2 = Player(player2Name, 0)
+        val player2 = Player(player2Name, 0)
         playerTwoScore = findViewById(R.id.counterTwo)
         "${player2.name}: ${player2.score}".also { playerTwoScore.text = it }
 
 
-        var player3 = Player(player3Name, 0)
+        val player3 = Player(player3Name, 0)
         playerThreeScore = findViewById(R.id.counterThree)
         "${player3.name}: ${player3.score}".also { playerThreeScore.text = it }
 
 
-        var player4 = Player(player4Name, 0)
+        val player4 = Player(player4Name, 0)
         playerFourScore = findViewById(R.id.counterFour)
         "${player4.name}:  ${player4.score}".also { playerFourScore.text = it }
 
-        var numOfPlayersAsInt = intent.getIntExtra("numOfPlayers", 0)
-
-        when (numOfPlayersAsInt) {
+        when (intent.getIntExtra("numOfPlayers", 0)) {
             1 -> {
                 playerList.add(player1)
             }
@@ -131,7 +127,7 @@ class CardgameActivity : AppCompatActivity() {
 
     // Tar intent från antal-spelare skärmen och gömmer de player-score textviews som inte ska spela.
     // Exempelvis om det är 2 spelare som ska spela så göms player 3 & 4
-    fun amountOfPlayers() {
+    private fun amountOfPlayers() {
         val numOfPlayers = intent.getIntExtra("numOfPlayers", 0)
 
         if (numOfPlayers != 0){
@@ -157,9 +153,9 @@ class CardgameActivity : AppCompatActivity() {
     // Aktiverar en clicklistener på samtliga kort, och på klick så körs metoden disableClickRow som innebär att alla click-listeners
     // på den raden stängs av, så att man bara kan välja ett kort per rad.
 
-    fun activateFirstRow() {
+    private fun activateFirstRow() {
         Toast.makeText(this,getString(R.string.newTurn, playerList[activePlayerIndex].name),Toast.LENGTH_SHORT).show()
-        var rowList = mutableListOf<ImageView>(imageViewList[0], imageViewList[1], imageViewList[2], imageViewList[3], imageViewList[4])
+        val rowList = mutableListOf(imageViewList[0], imageViewList[1], imageViewList[2], imageViewList[3], imageViewList[4])
 
             imageViewList[0].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[0])
                 diableClickRow(rowList)
@@ -188,9 +184,9 @@ class CardgameActivity : AppCompatActivity() {
     // Samma som activateFirstRow minus att skriva ut vem som spelar. Detta gäller för samtliga activate..Row
     // Denna kodupprepning blir det första som ändras i 2.0 versionen.
 
-    fun activateSecondRow() {
+    private fun activateSecondRow() {
 
-        var rowList = mutableListOf<ImageView>(imageViewList[5], imageViewList[6], imageViewList[7], imageViewList[8])
+        val rowList = mutableListOf(imageViewList[5], imageViewList[6], imageViewList[7], imageViewList[8])
 
         imageViewList[5].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[5])
             diableClickRow(rowList)
@@ -216,9 +212,9 @@ class CardgameActivity : AppCompatActivity() {
     // Samma som activateFirstRow minus att skriva ut vem som spelar. Detta gäller för samtliga activate..Row
     // Denna kodupprepning blir det första som ändras i 2.0 versionen.
 
-    fun activateThirdRow() {
+    private fun activateThirdRow() {
 
-        var rowList = mutableListOf<ImageView>(imageViewList[9], imageViewList[10], imageViewList[11])
+        val rowList = mutableListOf(imageViewList[9], imageViewList[10], imageViewList[11])
 
         imageViewList[9].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[9])
             diableClickRow(rowList)
@@ -241,9 +237,9 @@ class CardgameActivity : AppCompatActivity() {
     // Samma som activateFirstRow minus att skriva ut vem som spelar. Detta gäller för samtliga activate..Row
     // Denna kodupprepning blir det första som ändras i 2.0 versionen.
 
-    fun activateFourthRow() {
+    private fun activateFourthRow() {
 
-        var rowList = mutableListOf<ImageView>(imageViewList[12], imageViewList[13])
+        val rowList = mutableListOf(imageViewList[12], imageViewList[13])
 
         imageViewList[12].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[12])
             diableClickRow(rowList)
@@ -260,9 +256,8 @@ class CardgameActivity : AppCompatActivity() {
     // Denna kodupprepning blir det första som ändras i 2.0 versionen.
 
 
-    fun activateFifthrow(player : Player) {
-        var currentPlayer = player
-        var rowList = mutableListOf<ImageView>(imageViewList[14])
+    private fun activateFifthrow(player : Player) {
+        val rowList = mutableListOf(imageViewList[14])
 
         imageViewList[14].setOnClickListener { changeCardBackgroundHelperMethod(imageViewList[14])
             diableClickRow(rowList)
@@ -282,9 +277,9 @@ class CardgameActivity : AppCompatActivity() {
     // Kollar så att activeplayerindex inte är för stor för listan, att spelaren inte har 5 poäng, och sen aktiveras första raden kort.
     // Har spelaren 5 poäng avslutas spelet och användaren hamnar på startmenyn.
 
-    fun builderHelper(){
+    private fun builderHelper(){
         builder.setCancelable(false)
-        builder.setPositiveButton("OK"){dialogInterface, it ->
+        builder.setPositiveButton("OK"){ _, _ ->
             resetPictures()
             cardsInPyramid.removeAll(cardsInPyramid)
             deckOfCards.removeAll(deckOfCards)
@@ -296,13 +291,14 @@ class CardgameActivity : AppCompatActivity() {
                 startGame()
             }
         }
-        var isGameOver = wonGameCheck()
+        val isGameOver = wonGameCheck()
         if (!isGameOver) {
             builder.show()
         }
     }
 
     //Uppdaterar texten i poängtavlan
+    @SuppressLint("SetTextI18n")
     fun updateScore() {
         playerList.size
 
@@ -334,7 +330,7 @@ class CardgameActivity : AppCompatActivity() {
 
     //Kollar om en spelare har fem poäng och skickar ett vinst-meddelande vid true.
     //Returnerar en bool som används för att spelet ska köra på med ett annat meddelande-
-    fun wonGameCheck() : Boolean{
+    private fun wonGameCheck() : Boolean{
 
         if (playerList[activePlayerIndex].score == 5){
 
@@ -342,7 +338,7 @@ class CardgameActivity : AppCompatActivity() {
             builder.setMessage(getString(R.string.gameWinnerText,  playerList[activePlayerIndex].name))
             builder.setCancelable(false)
 
-            builder.setPositiveButton("OK"){dialogInterface, it ->
+            builder.setPositiveButton("OK"){ _, _ ->
                mainMenu()
             }
             builder.show()
@@ -351,14 +347,14 @@ class CardgameActivity : AppCompatActivity() {
     }
 
     //tar bort alla activities och skickar tillbaka användaren till huvudmenyn
-    fun mainMenu(){
+    private fun mainMenu(){
         intent = Intent(this, MainActivity::class.java)
-        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP )
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
 
     //Vinstmeddelande när spelaren klarar pyramiden, samt uppdaterar scoreboard
-    fun wonRound() {
+    private fun wonRound() {
         builder.setTitle(getString(R.string.winTitle))
         builder.setMessage(getString(R.string.winText, playerList[activePlayerIndex].name))
         playerList[activePlayerIndex].score ++
@@ -367,7 +363,7 @@ class CardgameActivity : AppCompatActivity() {
     }
 
     //Förlustmeddeladne när spelaren inte klarar pyramiden.
-    fun lostRound() {
+    private fun lostRound() {
         builder.setTitle(getString(R.string.lossTitle))
         builder.setMessage(getString(R.string.lossText, playerList[activePlayerIndex].name))
         builder.setCancelable(false)
@@ -375,28 +371,28 @@ class CardgameActivity : AppCompatActivity() {
     }
 
     //Byter tillbaka bilden på alla kort till baksidan av ett kort.
-    fun resetPictures() {
+    private fun resetPictures() {
         for (image in imageViewList) {
             image.setImageResource(R.drawable.cardback)
         }
     }
 
     //Stänger av klickbarhet för klicklisteners
-    fun diableClickRow(imageViewList: List<ImageView>){
+    private fun diableClickRow(imageViewList: List<ImageView>){
            for (view in imageViewList){
                view.isClickable = false
            }
     }
 
     //Initierar de imageviews som avnänds för korten i spelet.
-    fun initiateCardsOnBoard() {
+    private fun initiateCardsOnBoard() {
 
         //Första raden nedifrån
-        var firstRowFirstCard = findViewById<ImageView>(R.id.firstRowFirstCard)
-        var firstRowSecondCard = findViewById<ImageView>(R.id.firstRowSecondCard)
-        var firstRowThirdCard = findViewById<ImageView>(R.id.firstRowThirdCard)
-        var firstRowFourthCard = findViewById<ImageView>(R.id.firstRowFourthCard)
-        var firstRowFifthCard = findViewById<ImageView>(R.id.firstRowFifthCard)
+        val firstRowFirstCard = findViewById<ImageView>(R.id.firstRowFirstCard)
+        val firstRowSecondCard = findViewById<ImageView>(R.id.firstRowSecondCard)
+        val firstRowThirdCard = findViewById<ImageView>(R.id.firstRowThirdCard)
+        val firstRowFourthCard = findViewById<ImageView>(R.id.firstRowFourthCard)
+        val firstRowFifthCard = findViewById<ImageView>(R.id.firstRowFifthCard)
 
 
         imageViewList.add(firstRowFirstCard)
@@ -406,10 +402,10 @@ class CardgameActivity : AppCompatActivity() {
         imageViewList.add(firstRowFifthCard)
 
         //Andra raden nedifrån
-        var secondRowFirstCard = findViewById<ImageView>(R.id.secondRowFirstCard)
-        var secondRowSecondCard = findViewById<ImageView>(R.id.secondRowSecondCard)
-        var secondRowThirdCard = findViewById<ImageView>(R.id.secondRowThirdCard)
-        var secondRowFourthCard = findViewById<ImageView>(R.id.secondRowFourthCard)
+        val secondRowFirstCard = findViewById<ImageView>(R.id.secondRowFirstCard)
+        val secondRowSecondCard = findViewById<ImageView>(R.id.secondRowSecondCard)
+        val secondRowThirdCard = findViewById<ImageView>(R.id.secondRowThirdCard)
+        val secondRowFourthCard = findViewById<ImageView>(R.id.secondRowFourthCard)
 
         imageViewList.add(secondRowFirstCard)
         imageViewList.add(secondRowSecondCard)
@@ -417,9 +413,9 @@ class CardgameActivity : AppCompatActivity() {
         imageViewList.add(secondRowFourthCard)
         //Tredje raden nedifrån
 
-        var thirdRowFirstCard = findViewById<ImageView>(R.id.thirdRowFirstCard)
-        var thirdRowSecondCard = findViewById<ImageView>(R.id.thirdRowSecondCard)
-        var thirdRowThirdCard = findViewById<ImageView>(R.id.thirdRowThirdCard)
+        val thirdRowFirstCard = findViewById<ImageView>(R.id.thirdRowFirstCard)
+        val thirdRowSecondCard = findViewById<ImageView>(R.id.thirdRowSecondCard)
+        val thirdRowThirdCard = findViewById<ImageView>(R.id.thirdRowThirdCard)
 
 
         imageViewList.add(thirdRowFirstCard)
@@ -427,14 +423,14 @@ class CardgameActivity : AppCompatActivity() {
         imageViewList.add(thirdRowThirdCard)
         //Fjärde raden nedifrån
 
-        var fourthRowFirstCard = findViewById<ImageView>(R.id.fourthRowFirstCard)
-        var fourthRowSecondCard = findViewById<ImageView>(R.id.fourthRowSecondCard)
+        val fourthRowFirstCard = findViewById<ImageView>(R.id.fourthRowFirstCard)
+        val fourthRowSecondCard = findViewById<ImageView>(R.id.fourthRowSecondCard)
 
         imageViewList.add(fourthRowFirstCard)
         imageViewList.add(fourthRowSecondCard)
         //Femte raden nedifrån
 
-        var fifthRowFirstCard = findViewById<ImageView>(R.id.fifthRowFirstCard)
+        val fifthRowFirstCard = findViewById<ImageView>(R.id.fifthRowFirstCard)
         imageViewList.add(fifthRowFirstCard)
 
     }
@@ -442,7 +438,7 @@ class CardgameActivity : AppCompatActivity() {
     //Hjälpmetod som vid klick på ett kort byter bilden till samma som det översta kortet i kortleken.
     //Därefter läggs kortet in i listan cardsInPyramid som håller koll på korten i pyramiden,
     //samt tar bort det översta kortet i kortleken från kortleken.
-    fun changeCardBackgroundHelperMethod(imageView: ImageView){
+    private fun changeCardBackgroundHelperMethod(imageView: ImageView){
         imageView.setImageResource(deckOfCards[0].image)
         cardsInPyramid.add(deckOfCards[0])
         deckOfCards.removeAt(0)
@@ -450,7 +446,7 @@ class CardgameActivity : AppCompatActivity() {
 
 
     //Lägger till alla kort i en kortlista med namn och bilder, av klassen "Card"
-    fun initiateDeckOfCards () {
+    private fun initiateDeckOfCards () {
 
         deckOfCards.add(Card("ace_of_spades",  1, "spades", R.drawable.ace_of_spades))
         deckOfCards.add(Card("two_of_spades",  2, "spades", R.drawable.two_of_spades))
