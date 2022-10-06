@@ -50,7 +50,7 @@ class CardgameActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         deckOfCards.shuffle()
-        initiateCardsOnBoard() //Ta bort
+        initiateCardsOnBoard()
         builder = AlertDialog.Builder(this)
         startGame()
     }
