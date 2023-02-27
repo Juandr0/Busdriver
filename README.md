@@ -3,7 +3,7 @@ Made by Alexander Carlsson.
 A cardgame assignment for the course Android Development, 2022.
 
 I did not create the original game, nor do I have any rights to it.  
-The game itself is inspired by the drinking game "The Pyramid", or also known as "The Busdriver".
+The game itself is inspired by the drinking game "The Pyramid", or also known as "The Busdriver" in Sweden.
 
 
 ## Screenshots
